@@ -1,0 +1,18 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./cs-home.html">
+
+<dom-module id="cs-shell">
+    <template>
+        <cs-home></cs-home>
+    </template>
+
+    <script>
+        class ChameleonShell extends Polymer.Element {
+            static get is() {
+                return 'cs-shell';
+            }
+        }
+
+        customElements.define(ChameleonShell.is, ChameleonShell);
+    </script>
+</dom-module>

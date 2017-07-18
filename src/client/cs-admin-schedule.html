@@ -1,0 +1,19 @@
+<dom-module id="cs-admin-schedule">
+    <template>
+
+        <paper-tabs>
+            <paper-tab>Pending Requests</paper-tab>
+            <paper-tab>Approved Requests</paper-tab>
+            <paper-tab>Upcoming</paper-tab>
+        </paper-tabs>
+    </template>
+
+    <script>
+        class ChameleonAdminSchedule extends Polymer.Element {
+            static get is() { 'cs-admin-schedule' }
+
+        }
+
+        customElements.define(ChameleonAdminSchedule.is, ChameleonAdminSchedule);
+    </script>
+</dom-module>

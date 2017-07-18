@@ -1,0 +1,100 @@
+<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="./bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="./cs-banner.html">
+
+<dom-module id="cs-home">
+    <template>
+        <style type="text/css">
+            :host {
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                --contact-height: 1.4em;
+            }
+
+            cs-banner {
+                height: calc(100vh - var(--contact-height));
+            }
+
+            header#contact {
+                background-color: beige;
+                padding: .2em .4em;
+                text-align: right;
+                height: var(--contact-height);
+                box-sizing: border-box;
+                padding: .2em .4em;
+                border-bottom: 1px solid black;
+            }
+
+            
+
+            section#mission-statement {
+                background: darkslateblue;
+                color: white;
+                padding: 0.4em 0;
+                text-align: center;
+            }
+
+            section#mission-statement label {
+                color: #ccc;
+                text-transform: uppercase;
+                font-size: .6em;
+                display: block;
+                margin-top: .6em;
+                letter-spacing: .3em;
+                font-weight: 600;
+            }
+
+            section#mission-statement div#statement {
+                font-family: 'Bad Script', cursive, sans-serif;
+            }
+
+            section#text p {
+                margin: .6em 1.4em;
+            }
+        </style>
+
+        <header id="contact">
+            <div id="tel-number">
+                <span style="font-weight: 600">Call Us: </span>
+                <span>(941) 893.9977</span>
+            </div>
+        </header>
+
+        <cs-banner></cs-banner>
+
+        <main>
+            <section id="mission-statement">
+                <div id="statement">A mission statement will end up appearing here. This is an example.</div>
+                <label>Mission Statement</label>
+            </section>
+
+            <section id="contact">
+
+            </section>
+
+            <section id="text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nulla risus, ullamcorper ut tortor et, ultricies sollicitudin nulla. Curabitur vestibulum metus ut eros scelerisque tincidunt. Vivamus vel cursus nisl. Nam ullamcorper nisl lectus, eget facilisis quam ultricies eu. Morbi at dui odio. Vestibulum facilisis sem vitae tellus vulputate, a placerat lorem dapibus. Nam posuere metus a felis tempus, nec volutpat nisl rutrum. Donec porta tincidunt semper. Praesent malesuada justo gravida, gravida arcu in, accumsan odio. In vehicula finibus venenatis. Maecenas aliquet urna non leo dapibus mattis.</p>
+
+                <p>Duis et turpis ipsum. Donec bibendum augue vitae tellus viverra, ut rutrum diam varius. Sed porta ligula quis aliquet convallis. Morbi nibh ligula, porta in orci quis, mollis tempus felis. Vivamus molestie pretium maximus. Sed posuere lacinia massa, in porta dolor cursus vel. Morbi accumsan sodales mauris sed consequat. Ut nec mauris ut sem mattis volutpat elementum quis neque. Nullam id nisl commodo, congue urna ut, porttitor velit.</p>
+
+                <p>Phasellus vel posuere elit. In accumsan, dolor eu egestas imperdiet, arcu enim maximus leo, hendrerit lacinia sem diam a felis. Donec maximus accumsan purus at finibus. Ut quis massa ipsum. Curabitur nulla tellus, venenatis a posuere non, dapibus in mauris. Donec semper sollicitudin ipsum, maximus tincidunt diam consectetur et. Etiam non dapibus metus. Duis feugiat imperdiet porta. Etiam cursus hendrerit euismod. Ut in diam sem. Phasellus aliquet egestas dolor, sed dignissim sem sagittis a. Nulla tempor luctus ligula, a malesuada mi lacinia at.</p>
+
+                <p>Ut ligula magna, faucibus in egestas sit amet, fringilla vehicula ipsum. Suspendisse neque mi, gravida eget laoreet sed, placerat eu turpis. Pellentesque eu malesuada eros. Vestibulum maximus massa eget sodales molestie. Quisque dolor turpis, luctus sed laoreet nec, tempor a felis. Morbi gravida libero nisi, vitae ornare felis eleifend non. Maecenas efficitur ac est eget tincidunt. Fusce consectetur diam vitae elit consectetur, a dapibus elit tincidunt. Sed ac luctus diam. Sed nec libero vitae orci semper vestibulum. Etiam tristique feugiat sem non sollicitudin. Mauris odio ipsum, vehicula in erat ut, aliquam malesuada enim. Aenean mauris turpis, ultricies et arcu in, dictum tincidunt nibh. Aliquam congue mi nisi, at pellentesque turpis egestas sit amet. Praesent sagittis tempor rutrum. Phasellus sit amet lacus dui.</p>
+
+                <p>Nulla lacus neque, auctor id pretium sit amet, aliquet vitae augue. Etiam mi mi, aliquet vel felis non, pretium viverra ipsum. Donec hendrerit, turpis vel laoreet vehicula, massa felis varius lectus, ut suscipit est risus et enim. Nam ac leo lacinia erat varius venenatis quis eget ligula. Nullam ipsum nulla, interdum et mi vel, eleifend bibendum tellus. Vestibulum fermentum sapien at nibh sodales feugiat. Fusce et maximus odio, ac condimentum magna. Suspendisse leo magna, lacinia a justo ac, bibendum sodales nibh. Cras lobortis egestas lobortis. Mauris nec lorem velit. Fusce lorem nunc, suscipit a est ut, finibus sodales enim.</p>
+            </section>
+        </main>
+    </template>
+
+    <script>
+        class ChameleonHome extends Polymer.Element {
+            static get is() {
+                return 'cs-home';
+            }
+        }
+
+        customElements.define(ChameleonHome.is, ChameleonHome);
+    </script>
+</dom-module>

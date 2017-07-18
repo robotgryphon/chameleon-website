@@ -1,0 +1,202 @@
+<link rel="import" href="./bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="cs-banner">
+    <template>
+        <style>
+            :host {
+                display: block;
+                min-height: 100px;
+                width: inherit;
+                background-color: teal;
+                position: relative;
+                box-shadow: 0px 4px 5px 0 #333;
+            }
+
+            #banner-logo {
+                display: block;
+                position: absolute;
+                top: 1em;
+                left: 1em;
+                width: 300px;
+                height: 120px;
+                background-color: rgba(0, 0, 0, 0.25);
+                z-index: 25;
+            }
+
+            #banner-logo span {
+                color: white;
+                margin: 2em;
+                text-align: center;
+                display: block;
+            }
+
+            #banner-background {
+                display: block;
+                position: absolute;
+                box-sizing: border-box;
+                width: 100%;
+                height: 100%;
+                z-index: 5;
+
+                background: teal no-repeat center center fixed;
+                background-image: none;
+                background-size: cover;
+                transition: 3s;
+            }
+
+            #banner-overlay {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+                --overlay-background: rgba(0, 0, 0, 0.25);
+            }
+
+            #banner-overlay #nav-wrapper {
+                display: flex;
+                position: absolute;
+                margin: 0;
+                padding: 0.4em 0.8em 0.4em 2em;
+                z-index: 10;
+                box-sizing: border-box;
+                color: white;
+                bottom: .6em;
+                right: 0;
+                text-align: right;
+                font-weight: 400;
+
+                border-top-left-radius: .6em;
+                border-bottom-left-radius: .6em;
+                background-color: var(--overlay-background);
+            }
+
+            #nav-wrapper {
+                display: flex;
+            }
+
+            #nav-wrapper nav > span {
+                display: inline-flex;
+                margin-left: 1em;
+            }
+
+            #nav-wrapper nav > span:first-child {
+                margin-left: 0;
+            }
+
+            #nav-wrapper nav iron-icon {
+                color: lime;
+                height: 1em;
+            }
+
+            #nav-wrapper a {
+                text-transform: uppercase;
+                text-decoration: none;
+                font-size: .8em;
+                color: white;
+                font-family: sans-serif;
+                padding: 0 .4em;
+                text-align: right;
+                align-self: center;
+            }
+
+            #nav-wrapper a:hover {
+                color: antiquewhite;
+                text-decoration: underline;
+            }
+        </style>
+
+        <iron-ajax auto
+            url="[[imageListPath]]"
+            handle-as="json"
+            on-response="parseBannerImages"
+            debounce-duration="300"></iron-ajax>
+
+        <div id="banner-background"></div>
+
+        <div id="banner-overlay">
+            <div id="banner-logo">
+                <span>It's a logo, shh</span>
+            </div>
+
+            <div id="nav-wrapper">
+                <nav style="display: flex;">
+                    <span>
+                        <a href="/">
+                        <iron-icon icon="home"></iron-icon>
+                        </a>
+                    </span>
+
+                    <span>
+                        <iron-icon icon="supervisor-account"></iron-icon>
+                        <a href="#clients">                                <span>Clients</span></a>
+                    </span>
+
+                    <span>
+                        <iron-icon icon="payment"></iron-icon>
+                        <a href="/pricing">                            <span>Pricing</span></a>
+                    </span>
+                </nav>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        class ChameleonBanner extends Polymer.Element {
+            static get is() { return 'cs-banner'; }
+
+            static get properties() {
+                return {
+                    imageListPath: {
+                        type: String,
+                        value: "banner.json"
+                    },
+
+                    basePath: {
+                        type: String,
+                        value: "./media/"
+                    },
+
+                    transitionTime: {
+                        type: Number,
+                        value: 10
+                    },
+
+                    currentImage: {
+                        type: Number,
+                        value: 0
+                    }
+                }
+            }
+
+            parseBannerImages(data) {
+                this.images = [];
+
+                let bannerImages = data.detail.response;
+                if(!bannerImages) return;
+
+                bannerImages.forEach(path => {
+                    this.images.push(new Image().src = this.basePath + path);
+                });
+
+                this.maxImage = bannerImages.length - 1;
+                console.log("Got image list: ", this.images);
+
+                let banner = this.shadowRoot.querySelector("#banner-background");
+                banner.style.backgroundImage = "url('" + this.images[0] + "')";
+
+                setInterval(this.changeImage.bind(this), this.transitionTime * 1000);
+            }
+            
+            changeImage() {
+                this.currentImage++;
+                if(this.currentImage > this.maxImage) 
+                    this.currentImage = 0;
+
+                let banner = this.shadowRoot.querySelector("#banner-background");
+                banner.style.backgroundImage = "url('" + this.images[this.currentImage] + "')";
+            }
+        }
+
+        customElements.define(ChameleonBanner.is, ChameleonBanner);
+    </script>
+</dom-module>

@@ -1,0 +1,15 @@
+{
+  "name": "chameleonservices",
+  "description": "Chameleon Services webapp",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "http://chameleon-services.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -4,9 +4,24 @@
   "main": "server.js",
   "author": "Ted Senft",
   "license": "MIT",
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "scripts": {
+    "debug": "nf run babel-watch server.js"
+  },
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "moment": "^2.18.1",
     "passport": "^0.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-watch": "^2.0.7",
+    "foreman": "^2.0.0",
+    "nodemon": "^1.11.0"
   }
 }

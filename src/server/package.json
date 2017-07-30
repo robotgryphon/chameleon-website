@@ -1,5 +1,5 @@
 {
-  "name": "ChameleonServer",
+  "name": "chameleon-server",
   "version": "1.0.0",
   "main": "server.js",
   "author": "Ted Senft",

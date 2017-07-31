@@ -1,19 +1,24 @@
 <link rel="import" href="./bower_components/polymer/polymer-element.html">
 
-<dom-module is="cs-banner-navigation">
+<dom-module id="cs-banner-navigation">
     <template>
         <style>
             :host {
                 display: flex;
-                
+                position: absolute;
                 margin: 0;
                 padding: 0.4em 0.8em 0.4em 2em;
                 z-index: 10;
                 box-sizing: border-box;
                 color: white;
-                
+                bottom: .6em;
+                right: 0;
                 text-align: right;
                 font-weight: 400;
+
+                                border-top-left-radius: .6em;
+                border-bottom-left-radius: .6em;
+                background-color: var(--overlay-background);
             }
 
             nav > span {
@@ -33,7 +38,7 @@
             a {
                 text-transform: uppercase;
                 text-decoration: none;
-                font-size: .8em;
+                /* font-size: .8em; */
                 color: white;
                 font-family: sans-serif;
                 padding: 0 .4em;

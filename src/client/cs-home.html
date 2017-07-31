@@ -10,7 +10,8 @@
                 width: 100%;
                 height: 100%;
                 position: relative;
-                --contact-height: 1.4em;
+                
+                --contact-bg-color: rgba(0,0,0,0.45);
             }
 
             cs-banner {
@@ -18,21 +19,20 @@
             }
 
             header#contact {
-                background-color: rgba(0,0,0,0.75);
+                background-color: var(--contact-bg-color);
                 color: white;
                 padding: .2em .4em;
                 text-align: right;
                 height: var(--contact-height);
                 box-sizing: border-box;
-                padding: .2em .4em;
+                padding: .2em .6em;
                 border-bottom: 1px solid black;
                 position: absolute;
                 top: 0;
-                width: 100%;
+                right: 1.2em;
                 z-index: 1000;
-            }
-
-            
+                border-radius: 0 0 .4em .4em;
+            }            
 
             section#mission-statement {
                 background: darkslateblue;

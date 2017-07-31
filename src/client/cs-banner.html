@@ -8,7 +8,7 @@
                 display: block;
                 min-height: 100px;
                 width: inherit;
-                background-color: teal;
+                background-color: antiquewhite;
                 position: relative;
                 box-shadow: 0px 4px 5px 0 #333;
             }
@@ -16,10 +16,10 @@
             #banner-logo {
                 display: block;
                 position: absolute;
-                top: 1em;
+                top: 4em;
                 left: 1em;
-                background-color: rgba(250, 250, 250, 0.25);
-                border-radius: 45%;
+                background-color: rgba(250, 250, 250, 0.85);
+                border-radius: 8px;
                 z-index: 25;
             }
 
@@ -30,8 +30,9 @@
                 width: 100%;
                 height: 100%;
                 z-index: 5;
+                padding-top: 3em;
 
-                background: teal no-repeat center center fixed;
+                background: antiquewhite no-repeat center center fixed;
                 background-image: none;
                 background-size: cover;
                 transition: 3s;
@@ -52,7 +53,7 @@
             on-response="parseBannerImages"
             debounce-duration="300"></iron-ajax>
 
-        <div id="banner-background"></div>
+         <div id="banner-background"></div> 
 
         <div id="banner-overlay">
             <div id="banner-logo">

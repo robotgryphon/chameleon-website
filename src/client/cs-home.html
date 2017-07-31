@@ -16,12 +16,13 @@
             }
 
             cs-top-navigation {
-                height: 2.8em;
+                position: absolute;
+                width: 100%;
+                z-index: 30;
             }
 
             cs-banner {
-                border-top: 1px solid black;
-                height: calc(100vh - 2.8em);
+                height: 100vh;
             }
 
             header#contact {
@@ -34,10 +35,10 @@
                 padding: .2em .6em;
                 border-bottom: 1px solid black;
                 position: absolute;
-                top: 2.8em;
-                right: 1.2em;
+                top: 3.8em;
+                right: .2em;
                 z-index: 1000;
-                border-radius: 0 0 .4em .4em;
+                border-radius: .4em;
             }            
 
             section#mission-statement {
@@ -75,7 +76,7 @@
             </div>
         </header>
 
-        <cs-banner></cs-banner>
+         <cs-banner></cs-banner> 
 
         <main>
             <section id="mission-statement">

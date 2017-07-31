@@ -11,14 +11,14 @@
                 flex-direction: row;
                 align-items: stretch;
                 justify-content: flex-start;
-                background: darkslategray;
             }
 
             nav > .nav-link {
-                margin: 0 .1em;
                 display: flex;
                 height: inherit;
                 width: 20%;
+                margin: .15em .3em;
+                padding: .15em 0;
                 justify-content: center;
                 text-align: center;
                 letter-spacing: 2px;
@@ -27,9 +27,7 @@
 
                 --bc: var(--nav-link-color, var(--nav-link-default, azure));
                 background-color: var(--bc);
-                border-bottom-color: var(--bc);
-                border-bottom-style: solid;
-                border-bottom-width: .2em;
+                border-radius: 6px;
                 color: white;
                 
                 font-variant-caps: all-petite-caps;
@@ -37,42 +35,40 @@
 
             .nav-link span {
                 align-self: center;
+                box-sizing: border-box;
             }
 
             .nav-link:nth-of-type(1) {
-                --nav-link-color: forestgreen;
-            }
-
-            .nav-link:nth-of-type(2) {
-                --nav-link-color: navy;
-            }
-
-            .nav-link:nth-of-type(3) {
                 --nav-link-color: gold;
                 color: #333;
             }
 
+            .nav-link:nth-of-type(2) {
+                --nav-link-color: slateblue;
+                color: #eee;
+            }
+
+            .nav-link:nth-of-type(3) {
+                --nav-link-color: #BD2031;
+                color: #eee;
+            }
+
             .nav-link:nth-of-type(4) {
-                --nav-link-color: orange;
-                color: #333;
+                --nav-link-color: forestgreen;
+                color: #eee;
+                /* rgb( 240, 240, 240 ) */
             }
 
             .nav-link:nth-of-type(5) {
-                --nav-link-color: crimson;
+                --nav-link-color: orange;
+                color: #333;
+                /* rgb(30, 30, 30) */
             }
         </style>
 
         <nav>
             <div class="nav-link">
-                <span>Home &amp; Landscaping</span>
-            </div>
-
-            <div class="nav-link">
-                <span>Handyman Services</span>
-            </div>
-
-            <div class="nav-link">
-                <span>Cleaning</span>
+                <span>Home Watch</span>
             </div>
 
             <div class="nav-link">
@@ -80,7 +76,15 @@
             </div>
 
             <div class="nav-link">
-                <span>More &raquo;</span>
+                <span>Maintenance<br /> and Repair</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Lawn Care</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Other Services</span>
             </div>
 
         </nav>

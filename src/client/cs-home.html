@@ -11,95 +11,137 @@
                 width: 100%;
                 height: 100%;
                 position: relative;
-                
-                --contact-bg-color: rgba(0,0,0,0.45);
+
+                font-style: normal;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            
+            header {
+                height: 60vh;
+                width: 100%;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                background-color: forestgreen;
             }
 
             cs-top-navigation {
-                position: absolute;
+                position: relative;
                 width: 100%;
                 z-index: 30;
+                padding-top: 1em;
             }
 
             cs-banner {
-                height: 100vh;
-            }
-
-            header#contact {
-                background-color: var(--contact-bg-color);
-                color: white;
-                padding: .2em .4em;
-                text-align: right;
-                height: var(--contact-height);
-                box-sizing: border-box;
-                padding: .2em .6em;
-                border-bottom: 1px solid black;
                 position: absolute;
-                top: 3.8em;
-                right: .2em;
-                z-index: 1000;
-                border-radius: .4em;
-            }            
+                height: inherit;
+                top: 0;
+                left: 0;
+                z-index: 10;
+            }
 
-            section#mission-statement {
-                background: darkslateblue;
+            header div#overlay {
+                display: flex;
+                flex-direction: column;
+                width: fit-content;
+                align-items: center;
+                margin-top: 1.6em;
+                margin-left: 1em;
+                z-index: 25;
+            }      
+
+            div#overlay div#contact-wrapper {
+                box-sizing: border-box;
+                width: fit-content;
+            }
+
+            div#tel-wrap {
+                background-color: rgba(16, 48, 115, 0.7) !important;
                 color: white;
-                padding: 0.4em 0;
+            }
+
+            div#contact-wrapper > div {
+                background-color: rgba(30, 150, 30, 0.5);
+                padding: .4em .8em;
+                color: #eee;
+                box-sizing: border-box;
+                border-radius: 4px;
+                align-self: center;
                 text-align: center;
-            }
+                margin-bottom: .2em;
+            }   
 
-            section#mission-statement label {
-                color: #ccc;
+            div#contact-wrapper span {
+                font-size: .7em;
                 text-transform: uppercase;
-                font-size: .6em;
-                display: block;
-                margin-top: .6em;
-                letter-spacing: .3em;
-                font-weight: 600;
+                letter-spacing: .05em;
             }
 
-            section#mission-statement div#statement {
-                font-family: 'Bad Script', cursive, sans-serif;
+            div#message {
+                margin-top: 1em;
+                /* margin-right: 1em; */
+                text-align: center;
+                font-weight: bold;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: white;
+                font-size: 20pt;
+                font-variant-caps: all-petite-caps;
             }
 
-            section#text p {
-                margin: .6em 1.4em;
+            address#telephone {
+                font-size: 1.2em;
+                font-style: normal;
+                font-weight: bold;
+            }
+
+            footer {
+                box-sizing: border-box;
+                height: 40vh;
+                background: forestgreen url('/media/wood.jpg') repeat center center;
+                background-size: cover;
             }
         </style>
 
-        <cs-top-navigation></cs-top-navigation>
 
-        <header id="contact">
-            <div id="tel-number">
-                <span style="font-weight: 600">Call Us: </span>
-                <span>(941) 893.9977</span>
+        <header>
+            <cs-banner></cs-banner>
+
+            <div id="overlay">
+                <div id="banner-logo">
+                    <img src="/media/logo-md-border.png" alt="Chameleon Services logo" width="240" />
+                </div>
+
+                <div id="contact-wrapper">
+                    <div id="tel-wrap">
+                        <address id="telephone">(941) 893.9977</address>
+                    </div>
+                </div>
             </div>
         </header>
 
-         <cs-banner></cs-banner> 
+        <footer>
+            <cs-top-navigation></cs-top-navigation>
 
-        <main>
-            <section id="mission-statement">
-                <div id="statement">A mission statement will end up appearing here. This is an example.</div>
-                <label>Mission Statement</label>
-            </section>
+            <div id="header-spacer" style="flex-grow: 1;"></div>
 
-            <section id="contact">
+            <!-- <div id="mail-addr">
+                <span>Mailing Address:</span>
+                <address>
+                    1235 Kimball Road
+                    <br />
+                    Venice, FL 34293
+                </address>
+            </div> -->
 
-            </section>
+            <div id="message">
+                <p>Please excuse us while we work to improve our site.
+                    <br />
+                    More information coming soon!</p>
+            </div>
+        </footer>
 
-            <section id="text">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nulla risus, ullamcorper ut tortor et, ultricies sollicitudin nulla. Curabitur vestibulum metus ut eros scelerisque tincidunt. Vivamus vel cursus nisl. Nam ullamcorper nisl lectus, eget facilisis quam ultricies eu. Morbi at dui odio. Vestibulum facilisis sem vitae tellus vulputate, a placerat lorem dapibus. Nam posuere metus a felis tempus, nec volutpat nisl rutrum. Donec porta tincidunt semper. Praesent malesuada justo gravida, gravida arcu in, accumsan odio. In vehicula finibus venenatis. Maecenas aliquet urna non leo dapibus mattis.</p>
 
-                <p>Duis et turpis ipsum. Donec bibendum augue vitae tellus viverra, ut rutrum diam varius. Sed porta ligula quis aliquet convallis. Morbi nibh ligula, porta in orci quis, mollis tempus felis. Vivamus molestie pretium maximus. Sed posuere lacinia massa, in porta dolor cursus vel. Morbi accumsan sodales mauris sed consequat. Ut nec mauris ut sem mattis volutpat elementum quis neque. Nullam id nisl commodo, congue urna ut, porttitor velit.</p>
-
-                <p>Phasellus vel posuere elit. In accumsan, dolor eu egestas imperdiet, arcu enim maximus leo, hendrerit lacinia sem diam a felis. Donec maximus accumsan purus at finibus. Ut quis massa ipsum. Curabitur nulla tellus, venenatis a posuere non, dapibus in mauris. Donec semper sollicitudin ipsum, maximus tincidunt diam consectetur et. Etiam non dapibus metus. Duis feugiat imperdiet porta. Etiam cursus hendrerit euismod. Ut in diam sem. Phasellus aliquet egestas dolor, sed dignissim sem sagittis a. Nulla tempor luctus ligula, a malesuada mi lacinia at.</p>
-
-                <p>Ut ligula magna, faucibus in egestas sit amet, fringilla vehicula ipsum. Suspendisse neque mi, gravida eget laoreet sed, placerat eu turpis. Pellentesque eu malesuada eros. Vestibulum maximus massa eget sodales molestie. Quisque dolor turpis, luctus sed laoreet nec, tempor a felis. Morbi gravida libero nisi, vitae ornare felis eleifend non. Maecenas efficitur ac est eget tincidunt. Fusce consectetur diam vitae elit consectetur, a dapibus elit tincidunt. Sed ac luctus diam. Sed nec libero vitae orci semper vestibulum. Etiam tristique feugiat sem non sollicitudin. Mauris odio ipsum, vehicula in erat ut, aliquam malesuada enim. Aenean mauris turpis, ultricies et arcu in, dictum tincidunt nibh. Aliquam congue mi nisi, at pellentesque turpis egestas sit amet. Praesent sagittis tempor rutrum. Phasellus sit amet lacus dui.</p>
-
-                <p>Nulla lacus neque, auctor id pretium sit amet, aliquet vitae augue. Etiam mi mi, aliquet vel felis non, pretium viverra ipsum. Donec hendrerit, turpis vel laoreet vehicula, massa felis varius lectus, ut suscipit est risus et enim. Nam ac leo lacinia erat varius venenatis quis eget ligula. Nullam ipsum nulla, interdum et mi vel, eleifend bibendum tellus. Vestibulum fermentum sapien at nibh sodales feugiat. Fusce et maximus odio, ac condimentum magna. Suspendisse leo magna, lacinia a justo ac, bibendum sodales nibh. Cras lobortis egestas lobortis. Mauris nec lorem velit. Fusce lorem nunc, suscipit a est ut, finibus sodales enim.</p>
-            </section>
-        </main>
+         <!-- Meet the Team  -->
     </template>
 
     <script>

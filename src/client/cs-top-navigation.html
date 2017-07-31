@@ -1,0 +1,97 @@
+<dom-module id="cs-top-navigation">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            nav {
+                display: flex;
+                height: inherit;
+                flex-direction: row;
+                align-items: stretch;
+                justify-content: flex-start;
+                background: darkslategray;
+            }
+
+            nav > .nav-link {
+                margin: 0 .1em;
+                display: flex;
+                height: inherit;
+                width: 20%;
+                justify-content: center;
+                text-align: center;
+                letter-spacing: 2px;
+                font-weight: bold;
+                font-family: Tahoma, sans-serif;
+
+                --bc: var(--nav-link-color, var(--nav-link-default, azure));
+                background-color: var(--bc);
+                border-bottom-color: var(--bc);
+                border-bottom-style: solid;
+                border-bottom-width: .2em;
+                color: white;
+                
+                font-variant-caps: all-petite-caps;
+            }
+
+            .nav-link span {
+                align-self: center;
+            }
+
+            .nav-link:nth-of-type(1) {
+                --nav-link-color: forestgreen;
+            }
+
+            .nav-link:nth-of-type(2) {
+                --nav-link-color: navy;
+            }
+
+            .nav-link:nth-of-type(3) {
+                --nav-link-color: gold;
+                color: #333;
+            }
+
+            .nav-link:nth-of-type(4) {
+                --nav-link-color: orange;
+                color: #333;
+            }
+
+            .nav-link:nth-of-type(5) {
+                --nav-link-color: crimson;
+            }
+        </style>
+
+        <nav>
+            <div class="nav-link">
+                <span>Home &amp; Landscaping</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Handyman Services</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Cleaning</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Pressure Washing</span>
+            </div>
+
+            <div class="nav-link">
+                <span>More &raquo;</span>
+            </div>
+
+        </nav>
+    </template>
+</dom-module>
+
+<script>
+    class ChameleonTopNav extends Polymer.Element {
+        static get is() { return 'cs-top-navigation' }
+
+    }
+
+    customElements.define(ChameleonTopNav.is, ChameleonTopNav);
+</script>

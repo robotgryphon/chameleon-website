@@ -1,5 +1,6 @@
 <link rel="import" href="./bower_components/polymer/polymer-element.html">
 <link rel="import" href="./bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="./cs-top-navigation.html">
 <link rel="import" href="./cs-banner.html">
 
 <dom-module id="cs-home">
@@ -14,8 +15,13 @@
                 --contact-bg-color: rgba(0,0,0,0.45);
             }
 
+            cs-top-navigation {
+                height: 2.8em;
+            }
+
             cs-banner {
-                height: calc(100vh);
+                border-top: 1px solid black;
+                height: calc(100vh - 2.8em);
             }
 
             header#contact {
@@ -28,7 +34,7 @@
                 padding: .2em .6em;
                 border-bottom: 1px solid black;
                 position: absolute;
-                top: 0;
+                top: 2.8em;
                 right: 1.2em;
                 z-index: 1000;
                 border-radius: 0 0 .4em .4em;
@@ -59,6 +65,8 @@
                 margin: .6em 1.4em;
             }
         </style>
+
+        <cs-top-navigation></cs-top-navigation>
 
         <header id="contact">
             <div id="tel-number">

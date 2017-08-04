@@ -1,9 +1,9 @@
-<link rel="import" href="./bower_components/polymer/polymer-element.html">
-<link rel="import" href="./bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="./cs-top-navigation.html">
-<link rel="import" href="./cs-banner.html">
+<link rel="import" href="../../cs-banner.html">
 
-<dom-module id="cs-home">
+<dom-module id="cs-splash">
     <template>
         <style type="text/css">
             :host {
@@ -145,12 +145,12 @@
     </template>
 
     <script>
-        class ChameleonHome extends Polymer.Element {
+        class ChameleonSplash extends Polymer.Element {
             static get is() {
-                return 'cs-home';
+                return 'cs-splash';
             }
         }
 
-        customElements.define(ChameleonHome.is, ChameleonHome);
+        customElements.define(ChameleonSplash.is, ChameleonSplash);
     </script>
 </dom-module>

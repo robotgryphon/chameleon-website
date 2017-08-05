@@ -1,9 +1,17 @@
-<link rel="import" href="./bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="./views/splash/cs-splash.html">
 <link rel="import" href="./views/schedule/cs-schedule.html">
 
 <dom-module id="cs-shell">
     <template>
+        <style>
+            :host {
+                display: block;
+                width: 100vw;
+                height: 100vh;
+            }
+        </style>
+
         <!-- <cs-splash></cs-splash> -->
         <cs-schedule></cs-schedule>
     </template>

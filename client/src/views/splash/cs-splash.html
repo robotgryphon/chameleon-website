@@ -2,12 +2,14 @@
 <link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="./cs-top-navigation.html">
 <link rel="import" href="./cs-banner.html">
+<link rel="import" href="./cs-schedule-block.html">
 
 <dom-module id="cs-splash">
     <template>
         <style type="text/css">
             :host {
-                display: block;
+                display: flex;
+                flex-direction: column;
                 width: 100%;
                 height: 100%;
                 position: relative;
@@ -15,13 +17,17 @@
                 font-style: normal;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
+
+            .flex-spacer {
+                flex-grow: 1;
+            }
             
             header {
-                height: 60vh;
+                height: 70vh;
                 width: 100%;
                 position: relative;
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 background-color: forestgreen;
             }
 
@@ -29,15 +35,20 @@
                 position: relative;
                 width: 100%;
                 z-index: 30;
-                padding-top: 1em;
+                margin-top: 1em;
             }
 
             cs-banner {
                 position: absolute;
-                height: inherit;
                 top: 0;
                 left: 0;
-                z-index: 10;
+                z-index: 0;
+            }
+
+            header > div {
+                display: flex;
+                flex-direction: column;
+                z-index: 25;
             }
 
             header div#overlay {
@@ -47,7 +58,6 @@
                 align-items: center;
                 margin-top: 1.6em;
                 margin-left: 1em;
-                z-index: 25;
             }      
 
             div#overlay div#contact-wrapper {
@@ -86,6 +96,8 @@
                 color: white;
                 font-size: 20pt;
                 font-variant-caps: all-petite-caps;
+
+                display: none;
             }
 
             address#telephone {
@@ -94,9 +106,21 @@
                 font-weight: bold;
             }
 
+            header div#header-right {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 1em;
+            }
+
+            cs-schedule-block {
+                align-self: center;
+                margin-right: 1em;
+            }
+
             footer {
                 box-sizing: border-box;
-                height: 40vh;
+                flex-grow: 1;
                 background: forestgreen url('/media/wood.jpg') repeat center center;
                 background-size: cover;
             }
@@ -105,17 +129,35 @@
 
         <header>
             <cs-banner></cs-banner>
+            <div id="header-left">
+                <div id="overlay">
+                    <div id="banner-logo">
+                        <img src="/media/logo-md-border.png" alt="Chameleon Services logo" width="240" />
+                    </div>
 
-            <div id="overlay">
-                <div id="banner-logo">
-                    <img src="/media/logo-md-border.png" alt="Chameleon Services logo" width="240" />
-                </div>
-
-                <div id="contact-wrapper">
-                    <div id="tel-wrap">
-                        <address id="telephone">(941) 893.9977</address>
+                    <div id="contact-wrapper">
+                        <div id="tel-wrap">
+                            <address id="telephone">(941) 893.9977</address>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div id="header-middle" class="flex-spacer"></div>
+            
+            <div id="header-right">
+                <div style="padding: .4em; text-align: center; background-color: tan; border: 1px solid black;">
+                    For an appointment <br />
+                    Click <a>Here</a>
+                </div>
+
+                <div style="height: .3em"></div>
+
+                <div style="padding: .4em; font-weight: 800; text-align: center; background-color: lightgray; color: red; border: 1px solid black;">
+                    FREE ESTIMATES
+                </div>
+
+                <!-- <cs-schedule-block></cs-schedule-block> -->
             </div>
         </header>
 

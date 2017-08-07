@@ -6,7 +6,7 @@
         <style>
             :host {
                 display: block;
-                min-height: 100px;
+                height: 100%;
                 width: inherit;
                 background-color: antiquewhite;
                 position: relative;
@@ -46,12 +46,12 @@
                 return {
                     imageListPath: {
                         type: String,
-                        value: "banner.json"
+                        value: this.importPath + "/banner.json"
                     },
 
                     basePath: {
                         type: String,
-                        value: "./media/"
+                        value: "/media/banner/"
                     },
 
                     transitionTime: {

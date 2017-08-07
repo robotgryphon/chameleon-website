@@ -1,0 +1,61 @@
+<!-- TODO: Socket.IO to make buttons disappear -->
+
+<dom-module id="cs-schedule-block">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            #form-wrapper {
+                display: block;
+                background-color: tan;
+                opacity: 0.9;
+                color: black;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                padding: 1em;
+                border: 3px solid rgba(0,0,0, 0.5);
+            }
+
+            div#contact-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            div#contact-info input {
+                margin: 0.25em 0;
+                padding: 0.2em;
+            }
+
+            paper-button {
+                background-color: white;
+                font-size: 1em;
+                padding: 0.15em 0.4em;
+                font-variant-caps: small-caps;
+            }
+        </style>
+
+        <div id="form-wrapper">
+            <!-- IRON PAGES TO ANIMATE SELECTIONS  -->
+
+            <div id="contact-info">
+                <input placeholder="Your Name [Bob Smith]" type="text" />
+                <input placeholder="Phone" type="tel" />
+                <input placeholder="Email Address [bob@example.com]" type="email" />
+
+                <paper-button>Request Appointment</paper-button>
+            </div>
+
+        </div>
+    </template>
+
+    <script>
+        class ChameleonScheduleBlock extends Polymer.Element {
+            static get is() { return 'cs-schedule-block' }
+        }
+
+        customElements.define(ChameleonScheduleBlock.is, ChameleonScheduleBlock);
+    </script>
+</dom-module>

@@ -19,6 +19,11 @@
     "iron-pages": "^2.0.0",
     "page": "^1.7.1",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
-    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0"
+    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
+    "fancy-carousel": "annsonn/fancy-carousel#^1.0.3"
+  },
+  "resolutions": {
+    "polymer": "^2.0.2",
+    "webcomponentsjs": "^v1.0.2"
   }
 }

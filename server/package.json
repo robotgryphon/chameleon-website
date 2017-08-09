@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Chameleon web server",
+  "main": "server.js",
+  "author": "Ted Senft",
+  "license": "MIT",
+  "scripts": {
+    "debug": "nf run babel-node server.js"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "dependencies": {
+    "async-file": "^2.0.2",
+    "foreman": "^2.0.0",
+    "handlebars": "^4.0.10",
+    "moment": "^2.18.1",
+    "nodemailer": "^4.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.24.1"
+  }
+}

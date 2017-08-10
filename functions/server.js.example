@@ -7,12 +7,11 @@ import * as mail from './mail';
 
 let appointment = {
     timestamp: moment().startOf('day').set('hour', '17'),
-    email: 'admin@chameleon-services.com',
+    email: 'ted.senft@gmail.com',
     name: {
         first: "Ted"
     }
 };
 
-mail.generateEmailBody(appointment)
-    .then(body => console.log(body));
+mail.sendEmailReminder(appointment);
 // mail.sendEmailReminder(appointment);

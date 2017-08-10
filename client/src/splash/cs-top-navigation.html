@@ -9,12 +9,12 @@
                 display: flex;
                 height: inherit;
                 flex-direction: row;
-                align-items: stretch;
-                justify-content: flex-start;
+                justify-content: center;
             }
 
             nav > .nav-link {
                 display: flex;
+                box-sizing: border-box;
                 height: inherit;
                 width: 20%;
                 margin: .15em .3em;
@@ -31,6 +31,19 @@
                 
                 font-variant-caps: all-petite-caps;
                 border: 5px solid white;
+            }
+
+            @media screen and (max-width: 600px) {
+                nav {
+                    width: 100%;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                nav > .nav-link {
+                    width: 85%;
+                    margin: .3em .15em;
+                }
             }
 
             /* Actual Text */

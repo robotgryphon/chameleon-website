@@ -1,12 +1,13 @@
 {
-  "name": "polymer-webpack-demo",
+  "name": "chameleon-services-website",
   "version": "1.0.0",
-  "description": "A hello world example of polymer-webpack-loader.",
+  "description": "",
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "debug": "webpack-dev-server",
     "build": "webpack"
   },
-  "author": "Rob Dodson",
+
+  "author": "Ted Senft",
   "license": "Apache-2.0",
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -14,10 +15,10 @@
     "babel-preset-env": "^1.6.0",
     "copy-webpack-plugin": "^4.0.1",
     "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.29.0",
-    "polymer-webpack-loader": "^1.2.1",
-    "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "html-webpack-plugin": "^2.30.1",
+    "polymer-webpack-loader": "^1.2.6",
+    "webpack": "^3.5.2",
+    "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "d3": "^4.10.0",

@@ -4,16 +4,15 @@
     <meta charset="utf-8">
     <title>Chameleon Services</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <link href="https://fonts.googleapis.com/css?family=Bad+Script" rel="stylesheet">
-    <link href="/src/cs-shell.html" rel="import">
+
     <style type="text/css">
-        * {
+        html, body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-    </style> 
+    </style>
   </head>
   <body>
     <cs-shell></cs-shell>
@@ -33,7 +32,24 @@
       </script>
       <script type="text/javascript" src="bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>
     </div>
-  
+    
+    <!--
+      Use the webcomponents-loader script which will feature detect which Web
+      Components features are missing and lazy load the appropriate polyfills.
+      When we hear the 'WebComponentsReady' event from the polyfill bundle we can
+      insert our 'bundle.js'.
+    -->
+    <script>
+      (function() {
+        document.addEventListener('WebComponentsReady', function componentsReady() {
+          document.removeEventListener('WebComponentsReady', componentsReady, false);
+          var script = document.createElement('script');
+          script.src = '<%= htmlWebpackPlugin.files.js[0] %>';
+          var refScript = document.getElementsByTagName('script')[0];
+          refScript.parentNode.insertBefore(script, refScript);
+        }, false);
+      })();
+    </script>
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 
     <!--

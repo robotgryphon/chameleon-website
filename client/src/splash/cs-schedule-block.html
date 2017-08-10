@@ -1,0 +1,182 @@
+<!-- TODO: Socket.IO to make buttons disappear -->
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="cs-schedule-block">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            #form-wrapper {
+                display: block;
+                background-color: tan;
+                opacity: 0.9;
+                color: black;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                padding: 1em;
+                border: 3px solid rgba(0,0,0, 0.5);
+            }
+
+            div#contact-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            div#contact-info input {
+                margin: 0.25em 0;
+                padding: 0.2em;
+            }
+
+            paper-button {
+                background-color: white;
+                font-size: 1em;
+                padding: 0.15em 0.4em;
+                font-variant-caps: small-caps;
+            }
+
+            paper-dialog {
+                padding: 1em;
+                min-width: 500px;
+            }
+
+            paper-dialog input {
+                padding: 4px;
+                margin: .15em 0;
+                width: 100%;
+                display: block;
+                border-radius: 4px;
+                border: 1px solid lightblue;
+                background: none;
+            }
+
+            paper-button[hidden] { display: none; }
+        </style>
+
+        <paper-button on-tap="scheduleOpen">Schedule An Estimate</paper-button>
+
+        <paper-dialog modal id="dialog">
+            <paper-dialog-scrollable>
+                <iron-pages selected="{{dialogTab}}" attr-for-selected="data-page">
+                    <!-- IRON PAGES TO ANIMATE SELECTIONS  -->
+
+                    <section first-step data-page="contact-info">
+                        <p>How can we contact you?</p>
+                        <input placeholder="Your Name [Bob Smith]" type="text" />
+                        <input placeholder="Phone" type="tel" />
+                        <input placeholder="Email Address [bob@example.com]" type="email" />
+
+                        <br /> <br />
+
+                        <p>And where are we looking to service?</p>
+                        <input placeholder="Street 1" />
+                        <input placeholder="Street 2" />
+                        
+                        <div>
+                            <input placeholder="City" />
+                            <input placeholder="Zip Code" />
+                        </div>
+
+                        <br /> <br />
+
+                    </section>
+
+                    <section data-page="schedule">
+                        <div>Scheduling</div>
+                    </section>
+
+                    <section data-page="confirm">
+                        Confirmation
+
+                        <div>Login buttons will appear here</div>
+
+                        <br /><br />
+
+                        <paper-button on-tap="validate">Enable Submission</paper-button>
+                    </section>
+                </iron-pages>
+            </paper-dialog-scrollable>
+
+            <div class="buttons">
+                <paper-button dialog-dismiss>Cancel</paper-button>
+                 <paper-button on-tap="reset">Reset</paper-button> 
+                <paper-button hidden$="[[lastStep]]" on-tap="continue">Next Step</paper-button>
+                <paper-button disabled$="[[!formValid]]" dialog-confirm>Schedule</paper-button>
+            </div>
+        </paper-dialog>
+    </template>
+
+    <script>
+        class ChameleonScheduleBlock extends Polymer.Element {
+            static get is() { return 'cs-schedule-block' }
+
+            static get properties() {
+                return {
+                    dialogTab: {
+                        type: String,
+                        value: 'contact-info'
+                    },
+
+                    lastStep: {
+                        type: Boolean,
+                        value: false
+                    },
+
+                    currentStep: {
+                        type: Object
+                    },
+
+                    formValid: {
+                        type: Boolean,
+                        value: false
+                    }
+                }
+            }
+
+            ready() {
+                super.ready();
+                this.dialog = this.shadowRoot.querySelector("paper-dialog");
+                this.reset();
+                this.scheduleOpen();
+            }
+
+            scheduleOpen() {
+                this.reset();
+                this.dialog.open();
+            }
+
+            continue(ev) {
+                if(!this.lastStep) {
+                    this.currentStep = this.currentStep.nextElementSibling;
+                    this.dialogTab = this.currentStep.dataset.page;
+                
+                }
+
+                this.checkFinalStep();                
+            }
+
+            validate() {
+                this.formValid = true;
+            }
+
+            checkFinalStep() {
+                this.lastStep = !this.currentStep.nextElementSibling;
+            }
+
+            reset() {
+                this.currentStep = this.dialog.querySelector("section[first-step]");
+                this.checkFinalStep();
+
+                this.dialogTab = this.currentStep.dataset.page;
+            }
+        }
+
+        customElements.define(ChameleonScheduleBlock.is, ChameleonScheduleBlock);
+    </script>
+</dom-module>

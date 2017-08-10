@@ -16,14 +16,18 @@
     "polymer": "^2.0.2",
     "iron-ajax": "^2.0.2",
     "iron-icons": "^2.0.1",
-    "iron-pages": "^2.0.0",
+    "iron-pages": "PolymerElements/iron-pages#^2.0.0",
     "page": "^1.7.1",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
+    "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
+    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^2.0.0",
     "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
-    "fancy-carousel": "annsonn/fancy-carousel#^1.0.3"
+    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^2.1.0",
+    "paper-input": "PolymerElements/paper-input#^2.0.1",
+    "webcomponentsjs": "^1.0.7"
   },
   "resolutions": {
     "polymer": "^2.0.2",
-    "webcomponentsjs": "^v1.0.2"
+    "webcomponentsjs": "^v1.0.7"
   }
 }

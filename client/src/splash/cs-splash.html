@@ -1,5 +1,5 @@
-<link rel="import" href="../../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="./cs-top-navigation.html">
 <link rel="import" href="./cs-banner.html">
 <link rel="import" href="./cs-schedule-block.html">
@@ -24,6 +24,7 @@
             
             header {
                 height: 70vh;
+                min-height: 400px;
                 width: 100%;
                 position: relative;
                 display: flex;
@@ -45,13 +46,13 @@
                 z-index: 0;
             }
 
-            header > div {
+            header > .banner-overlay-panel {
                 display: flex;
                 flex-direction: column;
                 z-index: 25;
             }
 
-            header div#overlay {
+            header div#banner-and-contact {
                 display: flex;
                 flex-direction: column;
                 width: fit-content;
@@ -60,7 +61,7 @@
                 margin-left: 1em;
             }      
 
-            div#overlay div#contact-wrapper {
+            div#banner-and-contact div#contact-wrapper {
                 box-sizing: border-box;
                 width: fit-content;
             }
@@ -89,6 +90,7 @@
 
             div#message {
                 margin-top: 1em;
+                padding: 0 .2em;
                 /* margin-right: 1em; */
                 text-align: center;
                 font-weight: bold;
@@ -97,7 +99,6 @@
                 font-size: 20pt;
                 font-variant-caps: all-petite-caps;
 
-                display: none;
             }
 
             address#telephone {
@@ -115,7 +116,9 @@
 
             cs-schedule-block {
                 align-self: center;
-                margin-right: 1em;
+                position: absolute;
+                right: 1em;
+                top: 1em;
             }
 
             footer {
@@ -124,13 +127,26 @@
                 background: forestgreen url('/media/wood.jpg') repeat center center;
                 background-size: cover;
             }
+
+            @media screen and (max-width: 600px) {
+                .banner-overlay-panel {
+                    width: 100%;
+                    align-items: center;
+                }
+
+                #message {
+                    order: 0;
+                }
+            }
         </style>
 
 
         <header>
             <cs-banner></cs-banner>
-            <div id="header-left">
-                <div id="overlay">
+            <!-- <cs-schedule-block></cs-schedule-block> -->
+
+            <div class="banner-overlay-panel" id="header-left">
+                <div id="banner-and-contact">
                     <div id="banner-logo">
                         <img src="/media/logo-md-border.png" alt="Chameleon Services logo" width="240" />
                     </div>
@@ -142,29 +158,15 @@
                     </div>
                 </div>
             </div>
-
-            <div id="header-middle" class="flex-spacer"></div>
-            
-            <div id="header-right">
-                <div style="padding: .4em; text-align: center; background-color: tan; border: 1px solid black;">
-                    For an appointment <br />
-                    Click <a>Here</a>
-                </div>
-
-                <div style="height: .3em"></div>
-
-                <div style="padding: .4em; font-weight: 800; text-align: center; background-color: lightgray; color: red; border: 1px solid black;">
-                    FREE ESTIMATES
-                </div>
-
-                <!-- <cs-schedule-block></cs-schedule-block> -->
-            </div>
         </header>
 
         <footer>
-            <cs-top-navigation></cs-top-navigation>
+            <div id="message">
+                <p>Please excuse us while we work to improve our site.
+                    More information coming soon!</p>
+            </div>
 
-            <div id="header-spacer" style="flex-grow: 1;"></div>
+            <cs-top-navigation></cs-top-navigation>
 
             <!-- <div id="mail-addr">
                 <span>Mailing Address:</span>
@@ -174,12 +176,6 @@
                     Venice, FL 34293
                 </address>
             </div> -->
-
-            <div id="message">
-                <p>Please excuse us while we work to improve our site.
-                    <br />
-                    More information coming soon!</p>
-            </div>
         </footer>
 
 

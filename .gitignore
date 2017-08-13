@@ -4,3 +4,5 @@ build/
 
 Thumbs.db
 .env
+
+functions/

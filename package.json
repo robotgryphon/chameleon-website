@@ -1,0 +1,8 @@
+{
+  "name": "chameleon-services",
+  "version": "1.0.0",
+  "main": "entry.js",
+  "repository": "git@bitbucket.org:robotgryphon/chameleon-services.git",
+  "author": "@robotgryphon",
+  "license": "MIT"
+}

@@ -5,4 +5,7 @@ build/
 Thumbs.db
 .env
 
-functions/
+functions/index.js
+functions/templates/**
+firebase-debug.log
+functions/.runtimeconfig.json

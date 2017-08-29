@@ -1,0 +1,17 @@
+<dom-module id="cs-navigation">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+    </template>
+
+    <script>
+        class Navigation extends Polymer.Element {
+            static get is() { return 'cs-navigation' }
+        }
+
+        customElements.define(Navigation.is, Navigation);
+    </script>
+</dom-module>

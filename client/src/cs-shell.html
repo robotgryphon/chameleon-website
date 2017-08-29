@@ -1,24 +1,56 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html"> 
+<link rel="import" href="../bower_components/app-route/app-route.html"> 
+<link rel="import" href="../bower_components/app-route/app-location.html"> 
 <link rel="import" href="./splash/cs-splash.html">
+<link rel="import" href="./cs-jobs.html">
 
 <dom-module id="cs-shell">
     <template>
         <style>
             :host {
                 display: block;
-                width: 100vw;
-                height: 100vh;
+                width: 100%;
+                height: 100%;
             }
         </style>
 
-         <cs-splash></cs-splash> 
-        <!-- <cs-schedule></cs-schedule> -->
+        <app-location route="{{url}}"></app-location>
+        <app-route route="{{url}}" pattern="/:page" data="{{urlData}}"></app-route>
+
+        <iron-pages selected="[[page]]" attr-for-selected="page">
+            <cs-splash page="home"></cs-splash>
+            <cs-jobs page="jobs"></cs-jobs>
+        </iron-pages>
     </template>
 
     <script>
         class ChameleonShell extends Polymer.Element {
             static get is() {
                 return 'cs-shell';
+            }
+
+            static get properties() {
+                return {
+                    page: String,
+                    urlData: {
+                        type: Object,
+                        observer: "_urlChanged"
+                    }
+                }
+            }
+
+            constructor() {
+                super();
+            }
+
+            _urlChanged() {
+                if(!this.urlData || !this.urlData.page || this.urlData.page == '/') {
+                    this.page = 'home';
+                    return;
+                }
+
+                this.page = this.urlData.page;
             }
         }
 

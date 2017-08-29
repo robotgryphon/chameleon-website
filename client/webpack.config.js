@@ -27,17 +27,13 @@ module.exports = {
   module: {
     rules: [
       {
-        // If you see a file that ends in .html, send it to these loaders.
         test: /\.html$/,
-        // This is an example of chained loaders in Webpack.
-        // Chained loaders run last to first. So it will run
-        // polymer-webpack-loader, and hand the output to
-        // babel-loader. This let's us transpile JS in our `<script>` elements.
         use: [
-          { loader: 'babel-loader' },
-          { loader: 'polymer-webpack-loader' }
-        ]
+          'babel-loader',
+          'polymer-webpack-loader'
+        ]        
       },
+
       {
         // If you see a file that ends in .js, just send it to the babel-loader.
         test: /\.js$/,
@@ -50,7 +46,8 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000
+    port: 80,
+    historyApiFallback: true
   },
   plugins: [
     // This plugin will generate an index.html file for us that can be used

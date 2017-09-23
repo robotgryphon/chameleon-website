@@ -1,0 +1,23 @@
+{
+  "name": "Chameleon Services",
+  "short_name": "Chameleon Services",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#103073",
+  "theme_color": "#103073",
+  "description": "",
+  "icons": [{
+    "sizes": "512x512",
+    "type": "image/png",
+    "src": "/media/logo/512.png"
+  },
+  {
+    "sizes": "256x256",
+    "type": "image/png",
+    "src": "/media/logo/256.png"
+  }],
+  "related_applications": [{
+    "platform": "web",
+    "url": "https://chameleon-services.com"
+  }]
+}

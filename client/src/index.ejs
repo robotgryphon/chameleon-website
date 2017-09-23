@@ -10,6 +10,8 @@
     <meta property="og:title" content="Chameleon Services">
     
     <link href="https://fonts.googleapis.com/css?family=Bad+Script" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#103073">
 
     <style type="text/css">
         html, body {
@@ -21,6 +23,33 @@
   </head>
   <body>
     <cs-shell></cs-shell>
+
+    <noscript>
+      <style>
+        #nojs div {
+          margin: 1em;
+          background-color: #103073;
+          color: white;
+          padding: 1em;
+        }  
+      </style>
+
+      <section id="nojs">
+        <div>
+          <h1>Please enable Javascript!</h1>
+          <p>This site requires Javascript to work properly.</p>
+          <p>If you enable Javascript, you'll get access to plenty of neat features like offline support
+            and faster future loading times! No more waiting for things to download if you just need a phone number.</p>
+        </div>
+
+        <div>
+          <p>If you DO just need a phone number or a mailing address, here you go:</p>
+
+          <address>1235 Kimball Road, Venice, FL 34293</address>
+          <address>(941) 893.9977</address>
+        </div>
+      </section>
+    </noscript>
 
     <!--
       Feature detect Custom Elements support. If the browser DOES support Custom

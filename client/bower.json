@@ -27,7 +27,8 @@
     "webcomponentsjs": "^1.0.7",
     "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0",
     "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
-    "app-route": "PolymerElements/app-route#^2.0.2"
+    "app-route": "PolymerElements/app-route#^2.0.2",
+    "iron-media-query": "PolymerElements/iron-media-query#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.2",

@@ -1,9 +1,14 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html"> 
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html"> 
 <link rel="import" href="../bower_components/app-route/app-route.html"> 
 <link rel="import" href="../bower_components/app-route/app-location.html"> 
-<link rel="import" href="./splash/cs-splash.html">
+<link rel="import" href="./chameleon-iconset-svg.html">
+<link rel="import" href="./chameleon-navigation.html">
+<link rel="import" href="./cs-banner.html">
 <link rel="import" href="./cs-jobs.html">
+<link rel="import" href="./chameleon-footer.html">
 
 <dom-module id="cs-shell">
     <template>
@@ -13,21 +18,250 @@
                 width: 100%;
                 height: 100%;
                 min-height: 100vh;
+
+                --chameleon-blue: rgb(16, 48, 115);
+                --chameleon-green: rgb(122, 189, 45);
+                --chameleon-dark-green: forestgreen;
             }
 
             iron-pages {
                 height: 100%;
             }
+
+            :host {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                min-height: 100vh;
+                position: relative;
+
+                font-style: normal;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .flex-spacer {
+                flex-grow: 1;
+            }
+            
+            header {
+                height: 70vh;
+                padding-bottom: 1em;
+                width: 100%;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                background-color: var(--chameleon-dark-green, forestgreen);
+            }
+
+            chameleon-navigation {
+                position: relative;
+                width: 100%;
+                z-index: 30;
+                margin-top: 1em;
+            }
+
+            cs-banner {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 0;
+            }
+
+            header > .banner-overlay-panel {
+                display: flex;
+                flex-direction: column;
+                z-index: 25;
+            }
+
+            header div#banner-and-contact {
+                display: flex;
+                flex-direction: column;
+                width: fit-content;
+                align-items: center;
+                margin-top: 1.6em;
+                margin-left: 1em;
+            }      
+
+            div#banner-and-contact div#contact-wrapper {
+                box-sizing: border-box;
+                width: fit-content;
+            }
+
+            div#tel-wrap {
+                background-color: rgba(16, 48, 115, 0.7) !important;
+                color: white;
+            }
+
+            div#contact-wrapper > div {
+                background-color: rgba(30, 150, 30, 0.5);
+                padding: .4em .8em;
+                color: #eee;
+                box-sizing: border-box;
+                border-radius: 4px;
+                align-self: center;
+                text-align: center;
+                margin-bottom: .2em;
+            }   
+
+            div#contact-wrapper span {
+                font-size: .7em;
+                text-transform: uppercase;
+                letter-spacing: .05em;
+            }
+
+            div#message {
+                position: fixed;
+                bottom: 1em;
+                align-self: center;
+                background-color: rgba(0,0,0,.8);
+                padding: 0 .2em 1em;
+                color: white;
+                z-index: 9000;
+            }
+
+            div#message #message-actions {
+                text-align: right;
+                float: right;
+                margin-left: 1em;
+            }
+
+            div#message div#message-content {
+                font-size: 20pt;
+                font-variant-caps: all-petite-caps;
+                text-align: center;
+                font-weight: bold;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                padding: 1em;
+            }
+
+            address#telephone {
+                font-size: 1.2em;
+                font-style: normal;
+                font-weight: bold;
+            }
+
+            section#content {
+                box-sizing: border-box;
+                flex-grow: 1;
+                background: forestgreen url('/media/wood.jpg') repeat center center;
+                background-size: cover;
+            }
+
+            div#content-wrapper {
+                border: 3px double black;
+                background-color: white;
+                color: black;
+                padding: 1em;
+                text-align: left;
+                margin: 1em 2em 1em;
+            }
+
+            @media screen and (orientation: portrait) and (max-width: 1060px) {
+                header {
+                    height: 40vh;
+                }
+            }
+
+            @media screen and (max-width: 780px) {
+
+                header {
+                    height: fit-content;
+                }
+
+                .banner-overlay-panel {
+                    width: 100%;
+                    align-items: center;
+                }
+
+                #message {
+                    order: 0;
+                    margin: 0 !important;
+                    bottom: 0 !important;
+                    text-align: center;
+                }
+            }
         </style>
 
-        <app-location route="{{url}}"></app-location>
-        <app-route route="{{url}}" pattern="/:page" data="{{urlData}}"></app-route>
+        <aside>
+            <app-location route="{{url}}"></app-location>
+            <app-route route="{{url}}" pattern="/:page" data="{{urlData}}"></app-route>
+            <iron-media-query query="(max-width: 780px)" query-matches="{{smallScreen}}"></iron-media-query>
+        </aside>
 
-        <!-- TODO: Fix white space at bottom of page -->
-        <iron-pages selected="[[page]]" attr-for-selected="page">
-            <cs-splash page="home"></cs-splash>
-            <cs-jobs page="jobs"></cs-jobs>
-        </iron-pages>
+        <header>
+            <template is="dom-if" if="[[!smallScreen]]">
+                <cs-banner></cs-banner>
+            </template>
+
+            <!-- <cs-schedule-block></cs-schedule-block> -->
+
+            <div class="banner-overlay-panel" id="header-left">
+                <div id="banner-and-contact">
+                    <div id="banner-logo">
+                        <img src="/media/logo-md-border.png" alt="Chameleon Services logo" width="240" />
+                    </div>
+
+                    <div id="contact-wrapper">
+                        <div id="tel-wrap">
+                            <address id="telephone">(941) 893.9977</address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="message">
+            <div id="message-actions">
+                <paper-icon-button icon="chameleon:close" on-tap="closeInfoMessage"></paper-icon-button>
+            </div>
+
+            <div id="message-content">Please excuse us while we work to improve our site. More information is coming soon!</div>
+        </div>
+
+        <section id="content">
+            <chameleon-navigation></chameleon-navigation>
+
+            <div id="content-wrapper">
+
+                <h1>HTML Ipsum Presents</h1>
+                
+                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                
+                <h2>Header Level 2</h2>
+                
+                <ol>
+                   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                   <li>Aliquam tincidunt mauris eu risus.</li>
+                </ol>
+                
+                <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+                
+                <h3>Header Level 3</h3>
+                
+                <ul>
+                   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                   <li>Aliquam tincidunt mauris eu risus.</li>
+                </ul>
+                
+                <pre><code>
+                #header h1 a {
+                  display: block;
+                  width: 300px;
+                  height: 80px;
+                }
+                </code></pre>
+            </div>
+            <!-- <div id="mail-addr">
+                <span>Mailing Address:</span>
+                <address>
+                    1235 Kimball Road
+                    <br />
+                    Venice, FL 34293
+                </address>
+            </div> -->
+        </section>
+
+        <chameleon-footer></chameleon-footer>
     </template>
 
     <script>
@@ -48,6 +282,10 @@
 
             constructor() {
                 super();
+            }
+
+            closeInfoMessage() {
+                this.$.message.remove();
             }
 
             _urlChanged() {

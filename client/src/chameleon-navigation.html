@@ -1,4 +1,9 @@
-<dom-module id="cs-top-navigation">
+<!-- 
+    chameleon-navigation
+
+    Defines navigation for the application shell.
+ -->
+<dom-module id="chameleon-navigation">
     <template>
         <style>
             :host {
@@ -16,9 +21,8 @@
                 display: flex;
                 box-sizing: border-box;
                 height: inherit;
-                width: 20%;
                 margin: .15em .3em;
-                padding: .15em 0;
+                padding: .25em .15em;
                 justify-content: center;
                 text-align: center;
                 letter-spacing: 2px;
@@ -33,16 +37,40 @@
                 border: 5px solid white;
             }
 
-            @media screen and (max-width: 600px) {
+            @media screen and (min-width: 761px) {
+                nav > .nav-link {
+                    width: calc(100% / 5);
+                }    
+            }
+            
+
+            @media screen and (min-width: 601px) and (max-width: 760px) {
                 nav {
-                    width: 100%;
-                    flex-direction: column;
+                    width: 95%;
+                    margin: 0 auto;
+                    flex-direction: row;
+                    flex-wrap: wrap;
                     align-items: center;
+                    justify-content: space-between;
                 }
 
                 nav > .nav-link {
-                    width: 85%;
+                    width: calc((100% / 2) - .3em);
                     margin: .3em .15em;
+                    box-sizing: border-box;
+                }
+            }
+
+            @media screen and (max-width: 600px) {
+                nav {
+                    display: block;
+                    box-sizing: border-box;
+                }
+
+                .nav-link {
+                    width: auto;
+                    box-sizing: border-box;
+                    margin: 0 .2em;
                 }
             }
 
@@ -59,7 +87,7 @@
             }
 
             .nav-link:nth-of-type(2) {
-                --nav-link-color: rgb(16, 48, 115);
+                --nav-link-color: var(--chameleon-blue);
                 color: #eee;
             }
 
@@ -69,7 +97,7 @@
             }
 
             .nav-link:nth-of-type(4) {
-                --nav-link-color: rgb(122, 189, 45);
+                --nav-link-color: var(--chameleon-green);
                 color: #eee;
                 /* rgb( 240, 240, 240 ) */
             }
@@ -91,7 +119,7 @@
             </div>
 
             <div class="nav-link">
-                <span>Maintenance<br /> and Repair</span>
+                <span>Maintenance and Repair</span>
             </div>
 
             <div class="nav-link">
@@ -107,10 +135,10 @@
 </dom-module>
 
 <script>
-    class ChameleonTopNav extends Polymer.Element {
-        static get is() { return 'cs-top-navigation' }
+    class ChameleonNavigation extends Polymer.Element {
+        static get is() { return 'chameleon-navigation' }
 
     }
 
-    customElements.define(ChameleonTopNav.is, ChameleonTopNav);
+    customElements.define(ChameleonNavigation.is, ChameleonNavigation);
 </script>

@@ -74,6 +74,11 @@ module.exports = {
       {
         from: path.resolve(__dirname, 'src', 'banner.json'),
         to: 'banner.json'
+      },
+
+      {
+        from: path.resolve(__dirname, 'src', 'manifest.json'),
+        to: 'manifest.json'
       }
     ])
   ]

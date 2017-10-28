@@ -10,6 +10,27 @@ expect();
 
 var configStub, mail;
 
+class TestEmail extends Email {
+    set user(u) {
+        this.userDetails = u;
+    }
+
+    get template() {
+        return 'test_mail.hbs';
+    }
+
+    get subject() {
+        return 'Test Email, Please Ignore';
+    }
+
+    get emailData() {
+        return { 
+            email: this.sendTo,
+            name: this.userDetails.name
+        }
+    }
+}
+
 before(() => {
     configStub = stub(functions, 'config');
     configStub.returns({
@@ -52,10 +73,16 @@ describe('Email', () => {
         await mail.preprocess();
         let emailData = mail.emailData;
         let template = mail.template;
-        mail.template = 'test.hbs';
+        mail.template = 'test_mail.hbs';
 
         expect(mail.template).to.not.eq(template);
     });
+
+    it('can send the email', async () => {
+        let mail = new TestEmail(functions.config().mail, "admin@chameleon-services.com");
+        mail.user = { name: { first: "Test", last: "User" }};
+        return mail.send();
+    })
 });
 
 after(() => {

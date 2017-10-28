@@ -88,7 +88,9 @@ class Email {
      */
     get transporter() {
         return nodemailer.createTransport({
-            service: 'Godaddy',
+            host: 'smtpout.secureserver.net',
+            port: 465,
+            secure: true,
             auth: {
                 user: this.emailUser.username,
                 pass: this.emailUser.password

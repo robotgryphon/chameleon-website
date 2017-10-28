@@ -2,12 +2,14 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html"> 
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html"> 
+<link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html"> 
 <link rel="import" href="../bower_components/app-route/app-route.html"> 
 <link rel="import" href="../bower_components/app-route/app-location.html"> 
 <link rel="import" href="./chameleon-iconset-svg.html">
 <link rel="import" href="./chameleon-navigation.html">
 <link rel="import" href="./cs-banner.html">
-<link rel="import" href="./cs-jobs.html">
+<link rel="import" href="./chameleon-jobs.html">
 <link rel="import" href="./chameleon-footer.html">
 
 <dom-module id="cs-shell">
@@ -180,7 +182,24 @@
                     text-align: center;
                 }
             }
+
+            #overlay-topbar {
+                display: flex;
+            }
         </style>
+
+        <paper-dialog id="overlays" on-iron-overlay-closed="overlayClosed" modal>
+            <paper-dialog-scrollable>
+                <div id="overlay-topbar">
+                    <div style="flex-grow: 1"></div>
+                    <paper-icon-button icon="chameleon:close" dialog-dismiss></paper-icon-button>
+                </div>
+
+                <iron-pages selected="[[activeOverlay]]" attr-for-selected="oid">
+                    <chameleon-jobs oid="jobs"></chameleon-jobs>
+                </iron-pages>
+            </paper-dialog-scrollable>
+        </paper-dialog>
 
         <aside>
             <app-location route="{{url}}"></app-location>
@@ -264,7 +283,10 @@
         <chameleon-footer></chameleon-footer>
     </template>
 
-    <script>
+    <script type="module">
+        import { firebaseConfig } from './config.js';
+        import { initializeApp } from 'firebase';
+
         class ChameleonShell extends Polymer.Element {
             static get is() {
                 return 'cs-shell';
@@ -282,16 +304,36 @@
 
             constructor() {
                 super();
+                initializeApp(firebaseConfig);
             }
 
             closeInfoMessage() {
                 this.$.message.remove();
             }
 
-            _urlChanged() {
+            openOverlay(id) {
+                this.activeOverlay = id;
+                let overlayManager = this.$.overlays;
+                overlayManager.open();
+            }
+
+            overlayClosed() {
+                this.activeOverlay = null;
+                this.urlData = { };
+            }
+
+            _urlChanged(newPage) {
                 if(!this.urlData || !this.urlData.page || this.urlData.page == '/') {
                     this.page = 'home';
                     return;
+                }
+
+                this.page = newPage.page;
+
+                switch(newPage.page) {
+                    case "jobs":
+                        this.openOverlay('jobs');
+                        return;
                 }
 
                 this.page = this.urlData.page;

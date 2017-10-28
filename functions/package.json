@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "webpack",
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-core/register"
   },
   "babel": {
     "presets": [
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "async-file": "^2.0.2",
+    "babel-preset-env": "^1.6.1",
     "firebase-admin": "~4.2.1",
     "firebase-functions": "^0.5.7",
     "foreman": "^2.0.0",
@@ -30,7 +31,6 @@
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
-    "babel-preset-env": "^1.6.0",
     "chai": "^4.1.1",
     "copy-webpack-plugin": "^4.0.1",
     "dotenv": "^4.0.0",

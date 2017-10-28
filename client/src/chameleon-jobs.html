@@ -1,7 +1,7 @@
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 
-<dom-module id="cs-jobs">
+<dom-module id="chameleon-jobs">
         <template>
             <style>
                 :host {
@@ -16,12 +16,8 @@
                 }
 
                 main {
-                    width: 80%;
-                    max-width: 600px;
                     box-sizing: border-box;
                     padding: 1em;
-                    @apply --shadow-elevation-3dp;
-                    border: 1px solid gray;
                     margin: 1.4em 0;
                 }
 
@@ -117,8 +113,8 @@
                 <form>
                     <h3>Contact Information</h3>
                     <div class="horizontal">
-                        <input required type="text" placeholder="First Name" name="fname">
-                        <input required type="text" placeholder="Last Name" name="lname">
+                        <input required type="text" placeholder="First Name" name="name-first">
+                        <input required type="text" placeholder="Last Name" name="name-last">
                     </div>
 
                     <input class="full-width" required type="email" placeholder="Your Email Address" name="email">
@@ -164,18 +160,18 @@
 
                             <tbody>
                                 <tr>
-                                    <td><input type="text" name="ref1-name" placeholder="Reference 1" /></td>
-                                    <td><input type="tel" name="ref1-phone" placeholder="Phone" /></td>
+                                    <td><input type="text" name="ref-names[]" placeholder="Reference 1" /></td>
+                                    <td><input type="tel" name="ref-phones[]" placeholder="Phone" /></td>
                                 </tr>
 
                                 <tr>
-                                    <td><input type="text" name="ref2-name" placeholder="Reference 2" /></td>
-                                    <td><input type="tel" name="ref2-phone" placeholder="Phone" /></td>
+                                    <td><input type="text" name="ref-names[]" placeholder="Reference 2" /></td>
+                                    <td><input type="tel" name="ref-phones[]" placeholder="Phone" /></td>
                                 </tr>
 
                                 <tr>
-                                    <td><input type="text" name="ref3-name" placeholder="Reference 3" /></td>
-                                    <td><input type="tel" name="ref3-phone" placeholder="Phone" /></td>
+                                    <td><input type="text" name="ref-names[]" placeholder="Reference 3" /></td>
+                                    <td><input type="tel" name="ref-phones[]" placeholder="Phone" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -191,13 +187,13 @@
 
                             <tbody>
                                 <tr>
-                                    <td><input type="text" name="ref1-name" placeholder="Reference 1" /></td>
-                                    <td><input type="tel" name="ref1-phone" placeholder="Phone" /></td>
+                                    <td><input type="text" name="pref-names" placeholder="Reference 1" /></td>
+                                    <td><input type="tel" name="pref-phones" placeholder="Phone" /></td>
                                 </tr>
 
                                 <tr>
-                                    <td><input type="text" name="ref2-name" placeholder="Reference 2" /></td>
-                                    <td><input type="tel" name="ref2-phone" placeholder="Phone" /></td>
+                                    <td><input type="text" name="pref-names" placeholder="Reference 2" /></td>
+                                    <td><input type="tel" name="pref-phones" placeholder="Phone" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -214,9 +210,12 @@
             </main>
         </template>
     
-        <script>
+        <script type="module">
+            import * as firebase from 'firebase';
+            import formObject from 'form-to-object';
+
             class Jobs extends Polymer.Element {
-                static get is() { return 'cs-jobs' }
+                static get is() { return 'chameleon-jobs' }
 
                 ready() {
                     super.ready();
@@ -229,28 +228,50 @@
 
                 submitForm() {
                     let form = this.shadowRoot.querySelector("form");
-                    if(!form.reportValidity())
-                        return;
+                    // if(!form.reportValidity())
+                    //     return;
 
-                    let url = "https://requestb.in/usf8kjus";
-                    let data = new FormData(form);
+                    let url = "http://localhost:5000/chameleon-website-staging/us-central1/mail";
+                    let data = formObject(form);
 
-                    let request = new XMLHttpRequest();
-                    // Define what happens on successful data submission
-                    request.addEventListener("load", function(event) {
-                        console.log(event.target.responseText);
-                    });
+                    let ref = firebase.database().ref('applications/');
+                    
+                    let references = {};
+                    references['professional'] = [];
+                    references['personal'] = [];
 
-                    // Define what happens in case of error
-                    request.addEventListener("error", function(event) {
-                        alert('Oups! Something goes wrong.');
-                    });
+                    for(i = 0; i < 3; i++) {
+                        if(data['ref-names'][i].trim()) {
+                            references['professional'].push({
+                                name: data['ref-names'][i],
+                                phone: data['ref-phones'][i]
+                            });
+                        }
+                    };
 
-                    // Set up our request
-                    request.open("POST", url);
+                    delete data[`ref-names`];
+                    delete data[`ref-phones`];
 
-                    // The data sent is what the user provided in the form
-                    request.send(data);
+                    for(var i = 0; i < 2; i++) {
+                        if(data['pref-names'][i].trim()) {
+                            references['personal'].push({
+                                name: data[`pref-names`][i],
+                                number: data[`pref-phones`][i]
+                            });
+                        }
+                    }
+
+                    delete data['pref-names'];
+                    delete data['pref-phones'];
+
+                    data['name'] = { first: data['name-first'], last: data['name-last'] };
+                    delete data['name-first'];
+                    delete data['name-last'];
+                                        
+                    data['references'] = references;
+                    let newRef = ref.push(data);
+
+                    form.reset();
                 }
             }
 

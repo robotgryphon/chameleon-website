@@ -1,19 +1,15 @@
 import * as functions from 'firebase-functions';
-import { AppointmentScheduled } from './templates';
+import NewApplicantEmail from './new_applicant';
 
-export const mail = functions.https.onRequest(mailFunction);
+export const sendApplicationEmail= functions.database.ref('applications/{id}').onCreate(event => {
+    const data = event.data.val();
+    console.log(`Got application from ${data.name.first} ${data.name.last}.`);
 
-async function mailFunction(req, res) {
-    const mailUser = functions.config().mail;
-   
-    let mail = new AppointmentScheduled(mailUser, req.body.email);
-    mail.user = req.body.user;
-    mail.timestamp = req.body.timestamp;
+    let mailUser = functions.config().mail;
+    console.log(mailUser);
+    let email = new NewApplicantEmail(mailUser, data.email);
+    email.formData = data;
 
-    mail.send()
-        .then(res.status(200).send("ok"))
-        .catch(err => {
-            console.log(err);
-            res.status(500).send("failed");
-        });
-}
+    return true;
+    // return email.send();
+});

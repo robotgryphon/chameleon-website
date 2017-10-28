@@ -4,5 +4,12 @@
   "main": "entry.js",
   "repository": "git@bitbucket.org:robotgryphon/chameleon-services.git",
   "author": "@robotgryphon",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "fb": "firebase",
+    "functions": "firebase serve --only functions"
+  },
+  "dependencies": {
+    "firebase-tools": "^3.13.1"
+  }
 }

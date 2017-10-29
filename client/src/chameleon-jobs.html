@@ -228,10 +228,10 @@
 
                 submitForm() {
                     let form = this.shadowRoot.querySelector("form");
-                    // if(!form.reportValidity())
-                    //     return;
+                    if(!form.reportValidity())
+                        return;
 
-                    let url = "http://localhost:5000/chameleon-website-staging/us-central1/mail";
+                    // let url = "http://localhost:5000/chameleon-website-staging/us-central1/mail";
                     let data = formObject(form);
 
                     let ref = firebase.database().ref('applications/');

@@ -124,8 +124,8 @@
                     <input required class="full-width" type="text" placeholder="Street Address" name="street">
 
                     <div class="horizontal">
-                        <input required type="text" placeholder="State" name="state">
                         <input required type="text" placeholder="City" name="city">
+                        <input required type="text" placeholder="State" name="state">
                         <input required type="text" placeholder="Zip Code" name="zip">
                     </div>
 
@@ -271,6 +271,7 @@
                     data['references'] = references;
                     let newRef = ref.push(data);
 
+                    alert("Thank you! Your application has been submitted. We'll get back to you shortly.");
                     form.reset();
                 }
             }

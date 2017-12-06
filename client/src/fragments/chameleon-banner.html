@@ -1,7 +1,7 @@
-<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <!-- <link rel="import" href="./cs-banner-navigation.html"> -->
 
-<dom-module id="cs-banner">
+<dom-module id="chameleon-banner">
     <template>
         <style>
             :host {
@@ -48,7 +48,7 @@
 
     <script>
         class ChameleonBanner extends Polymer.Element {
-            static get is() { return 'cs-banner'; }
+            static get is() { return 'chameleon-banner'; }
 
             static get properties() {
                 return {
@@ -80,6 +80,12 @@
                 this.cached = 0;
                 this.imagesAllLoaded = false;
                 this.currentImage = 0;
+                console.log("Banner ready.");
+            }
+
+            ready() {
+                super.ready();
+
             }
 
             parseBannerImages(data) {

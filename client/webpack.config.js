@@ -37,6 +37,7 @@ module.exports = {
       {
         // If you see a file that ends in .js, just send it to the babel-loader.
         test: /\.js$/,
+        include: [/src/],
         use: 'babel-loader'
       }
     ]
@@ -46,7 +47,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 8080,
+    port: 3030,
     historyApiFallback: true
   },
   plugins: [

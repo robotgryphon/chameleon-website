@@ -1,0 +1,15 @@
+<dom-module id="chameleon-editor">
+    <template>
+        Editor
+    </template>
+
+    <script>
+        console.log("Editor loaded.");
+        
+        export class ChameleonEditor extends Polymer.Element {
+            static get is() { return 'chameleon-editor' }
+        }
+
+        customElements.define(ChameleonEditor.is, ChameleonEditor);
+    </script>
+</dom-module>

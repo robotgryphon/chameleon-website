@@ -109,12 +109,14 @@
             </nav>
         </header>
 
-        <div id="overlay">
-            <div id="overlay-inner">
-                <div>You must be logged in as an administrator to continue.</div>
-                <div><a href="/">Back to Home</a></div>
+        <template is="dom-if" if="[[!admin]]">
+            <div id="overlay">
+                <div id="overlay-inner">
+                    <div>You must be logged in as an administrator to continue.</div>
+                    <div><a href="/">Back to Home</a></div>
+                </div>
             </div>
-        </div>
+        </template>
 
         <main>
             <h1>Site Editor</h1>
@@ -152,12 +154,22 @@
         </main>
     </template>
 
-    <script>
-        export class ChameleonEditor extends Polymer.Element {
+    <script type="module">
+
+        import * as firebase from 'firebase';
+        import ChameleonState from '../chameleon-state.js';
+
+        export class ChameleonEditor extends ChameleonState(Polymer.Element) {
             static get is() { return 'chameleon-editor' }
 
             static get properties() {
                 return {
+                    admin: {
+                        type: Boolean,
+                        value: false,
+                        statePath: 'user.isAdmin'
+                    },
+
                     introMessage: {
                         type: String,
                         value: "Please excuse us while we work to improve our site. More information is coming soon!"

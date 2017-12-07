@@ -72,9 +72,10 @@
 
     <script type="module">
         import { firebaseConfig } from './config.js';
-        import { initializeApp } from 'firebase';
+        import * as firebase from 'firebase';
+        import ChameleonState from './chameleon-state.js';
 
-        class ChameleonShell extends Polymer.Element {
+        class ChameleonShell extends ChameleonState(Polymer.Element) {
             static get is() {
                 return 'cs-shell';
             }
@@ -89,9 +90,40 @@
                 }
             }
 
+            static get actions() {
+                return {
+                    authChanged(user) {
+                        return 
+                    }
+                }
+            }
+
             constructor() {
                 super();
-                initializeApp(firebaseConfig);
+                firebase.initializeApp(firebaseConfig);
+                firebase.auth().onAuthStateChanged(this.authChanged.bind(this));
+                Polymer.RenderStatus.afterNextRender(this, this.secondFrame);
+            }
+
+            authChanged(user) {
+                if(user) {
+                    firebase.database().ref(`admins/${user.uid}`)
+                        .once('value')
+                        .then((snap) => {
+                            this.dispatch({
+                                type: 'AUTH_CHANGED',
+                                user: {
+                                    isAdmin: snap.val(),
+                                    uid: user.uid,
+                                    displayName: user.displayName
+                                }
+                            });
+                        });
+                }
+            }
+
+            secondFrame() {
+                
             }
 
             openOverlay(id) {

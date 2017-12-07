@@ -58,7 +58,7 @@
             <section>
                 <h5>Helpful Links</h5>
                 <nav>
-                    <div><a href="/jobs">Employment Application</a></div>
+                    <!-- <div><a href="/jobs">Employment Application</a></div> -->
                     <div><a href="/">Request an estimate (Free!)</a></div>
                 </nav>
             </section>
@@ -80,9 +80,12 @@
             <section>
                 <h5>Other Links:</h5>
                 <nav>
+                    <template is="dom-if" if="[[loggedIn]]">
+                        <div><a href="#" on-tap="logout">Logout ([[displayName]])</a></div>
+                    </template>
+
                     <template is="dom-if" if="[[admin]]">
                         <div><a href="/editor">Site Editor</a></div>
-                        <div><a href="#" on-tap="logout">Logout ([[displayName]])</a></div>
                     </template>
 
                     <template is="dom-if" if="[[!admin]]">
@@ -95,7 +98,7 @@
 
     <script type="module">
         import * as firebase from 'firebase';
-        import ChameleonState from '../chameleon-state.js';
+        import ChameleonState from '../scripts/chameleon-state.js';
 
         export class ChameleonFooter extends ChameleonState(Polymer.Element) {
             static get is() { return 'chameleon-footer' }
@@ -110,6 +113,11 @@
                     admin: {
                         type: Boolean,
                         statePath: 'user.isAdmin'
+                    },
+
+                    loggedIn: {
+                        type: Boolean,
+                        statePath: 'user.isLoggedIn'
                     }
                 }
             }

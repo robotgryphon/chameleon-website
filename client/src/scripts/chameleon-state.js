@@ -1,11 +1,12 @@
 import { createStore } from 'redux';
-import PolymerRedux from 'polymer-redux';
+import PolymerRedux from './polymer-redux-fork';
 
 let defaultState = {
     user: {
         uid: '',
         displayName: 'Guest',
-        isAdmin: false
+        isAdmin: false,
+        isLoggedIn: false
     }
 };
 

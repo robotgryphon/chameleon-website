@@ -1,4 +1,3 @@
-<link rel="import" href="../chameleon-jobs.html">
 <link rel="import" href="../fragments/chameleon-banner.html">
 <link rel="import" href="../fragments/chameleon-footer.html">
 
@@ -82,7 +81,8 @@
                 position: fixed;
                 bottom: 1em;
                 align-self: center;
-                background-color: rgba(0,0,0,.8);
+                background-color: rgba(202, 30, 30, 0.8);
+                border: 2px solid white;
                 padding: 0 .2em 1em;
                 color: white;
                 z-index: 9000;
@@ -302,9 +302,9 @@
     
             </nav>
 
-            <div id="content-wrapper">
+            <!-- <div id="content-wrapper">
                 <!-- Insert HTML HERE -->
-            </div>
+            </div> -->
         </section>
 
         <chameleon-footer></chameleon-footer>
@@ -312,6 +312,7 @@
 
     <script type="module">
         import * as firebase from 'firebase';
+        import { isConfigStillEnabled } from '../scripts/config-utils';
 
         class ChameleonHome extends Polymer.Element {
             static get is() { return 'chameleon-home' }
@@ -328,11 +329,11 @@
             // Sets up the welcome message popup. 
             getWelcomeMessage() {
                 let db = firebase.database();
-                let message = db.ref("public/config/welcome-message");
+                let message = db.ref("config/splash-page/intro-message");
                 message.once('value')
                     .then((snap) => { 
                         let messageConfig = snap.val();
-                        if(!messageConfig.enabled) return;
+                        if(!messageConfig || !isConfigStillEnabled(messageConfig)) return;
                         let div = document.createElement('div');
                         div.id = "welcome-message";
 

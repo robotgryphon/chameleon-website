@@ -1,15 +1,12 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html"> 
-<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html"> 
-<link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html"> 
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/app-route/app-route.html"> 
 <link rel="import" href="../bower_components/app-route/app-location.html"> 
 <link rel="import" href="./chameleon-iconset-svg.html">
 
 <link rel="import" href="./pages/chameleon-home.html">
-<link rel="import" href="./pages/chameleon-editor.html">
 
 <dom-module id="cs-shell">
     <template>
@@ -45,19 +42,6 @@
             }
         </style>
 
-        <paper-dialog id="overlays" on-iron-overlay-closed="overlayClosed" modal>
-            <paper-dialog-scrollable>
-                <div id="overlay-topbar">
-                    <div style="flex-grow: 1"></div>
-                    <paper-icon-button icon="chameleon:close" dialog-dismiss></paper-icon-button>
-                </div>
-
-                <iron-pages selected="[[activeOverlay]]" attr-for-selected="oid">
-                    <chameleon-jobs oid="jobs"></chameleon-jobs>
-                </iron-pages>
-            </paper-dialog-scrollable>
-        </paper-dialog>
-
         <aside>
             <app-location route="{{url}}"></app-location>
             <app-route route="{{url}}" pattern="/:page" data="{{urlData}}"></app-route>
@@ -71,9 +55,9 @@
     </template>
 
     <script type="module">
-        import { firebaseConfig } from './config.js';
         import * as firebase from 'firebase';
-        import ChameleonState from './chameleon-state.js';
+        import { firebaseConfig } from './scripts/config.js';
+        import ChameleonState from './scripts/chameleon-state.js';
 
         class ChameleonShell extends ChameleonState(Polymer.Element) {
             static get is() {
@@ -115,7 +99,8 @@
                                 user: {
                                     isAdmin: snap.val(),
                                     uid: user.uid,
-                                    displayName: user.displayName
+                                    displayName: user.displayName,
+                                    isLoggedIn: true
                                 }
                             });
                         });
@@ -123,18 +108,6 @@
             }
 
             secondFrame() {
-                
-            }
-
-            openOverlay(id) {
-                this.activeOverlay = id;
-                let overlayManager = this.$.overlays;
-                overlayManager.open();
-            }
-
-            overlayClosed() {
-                this.activeOverlay = null;
-                this.urlData = { };
             }
 
             _urlChanged(newPage) {
@@ -145,12 +118,6 @@
                 }
 
                 this.page = newPage.page;
-
-                switch(newPage.page) {
-                    case "jobs":
-                        this.openOverlay('jobs');
-                        return;
-                }
             }
         }
 

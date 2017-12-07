@@ -7,9 +7,11 @@
   "license": "MIT",
   "scripts": {
     "fb": "firebase",
-    "functions": "firebase serve --only functions"
+    "functions": "firebase serve --only functions",
+    "minify": "uglifyjs --compress build/bundle.js -o build/bundle.min.js"
   },
   "dependencies": {
-    "firebase-tools": "^3.13.1"
+    "firebase-tools": "^3.13.1",
+    "uglify-es": "^3.2.1"
   }
 }

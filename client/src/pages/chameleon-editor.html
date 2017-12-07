@@ -42,7 +42,7 @@
                 padding: .4em;
             }
 
-            section > div {
+            section form > div, section > div {
                 margin: .8em 0;
                 padding: 1em;
                 color: black;
@@ -127,19 +127,22 @@
                     <h2>Splash Page</h2>
                 </header>
 
-                <div class="form-field">
-                    <div>Introductory Message</div>
-                    <div>
-                        <div class="field">
-                            <input type="checkbox" name="showIntroMessage" />
-                            <label for="showIntroMessage">Show?</label>
-                        </div>
+                <form id="splash">
+                    <div class="form-field">
+                        <div>Introductory Message</div>
+                        <div>
+                            <div class="field">
+                                <input type="checkbox" name="intro-message-enable" id="splash|intro-message|enabled" /> Enable?
+                            </div>
 
-                        <div class="field">
-                            <textarea value="[[introMessage]]"></textarea>
+                            <div class="field">
+                                <textarea required name="intro-message-text" id="splash|intro-message|text"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <button class="form-save" on-tap="saveSection" type="button">Save Section</button>
+                </form>
             </section>
 
             <section>
@@ -175,6 +178,38 @@
                         value: "Please excuse us while we work to improve our site. More information is coming soon!"
                     }
                 }
+            }
+
+            ready() {
+                super.ready();
+                Polymer.RenderStatus.afterNextRender(this, this.createForm.bind(this));
+            }
+
+            saveSection(e) {
+                let form = e.target.form;                
+                let data = new FormData(form);
+
+                console.log(data.get("showIntroMessage"));
+                // console.log(section);
+            }
+
+            createForm() {
+                var config = {};
+                firebase.database().ref('config').once('value').then((snap) => {
+                    if(!snap || !snap.val()) {
+                        console.log("No configuration structure found.");
+                        return;
+                    }
+
+                    let config = snap.val();
+                    let keys = Object.keys(config);
+                    keys.forEach(section =>this.walkSection( config[section] ));
+                });
+            }
+
+            walkSection(section) {
+                console.log("Walking section " + section.name);
+                console.log(section);
             }
         }
 

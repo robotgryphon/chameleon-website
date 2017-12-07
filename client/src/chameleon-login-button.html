@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html"> 
+<link rel="import" href="./chameleon-iconset-svg.html">
+
+<dom-module id="chameleon-login-button">
+    <template>
+        
+    </template>
+
+    <script type="module">
+        import { firebaseConfig } from './config.js';
+        import { initializeApp } from 'firebase';
+
+        class ChameleonLoginButton extends Polymer.Element {
+            static get is() {
+                return 'chameleon-login-button';
+            }
+
+            static get properties() {
+                return {
+
+                }
+            }
+
+            constructor() {
+                super();
+                initializeApp(firebaseConfig);
+            }
+        }
+
+        customElements.define(ChameleonLoginButton.is, ChameleonLoginButton);
+    </script>
+</dom-module>

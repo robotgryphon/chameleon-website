@@ -78,7 +78,7 @@
                 letter-spacing: .05em;
             }
 
-            div#message {
+            div#welcome-message {
                 position: fixed;
                 bottom: 1em;
                 align-self: center;
@@ -88,13 +88,13 @@
                 z-index: 9000;
             }
 
-            div#message #message-actions {
+            div#welcome-message #message-actions {
                 text-align: right;
                 float: right;
                 margin-left: 1em;
             }
 
-            div#message div#message-content {
+            div#welcome-message div#welcome-message-content {
                 font-size: 20pt;
                 font-variant-caps: all-petite-caps;
                 text-align: center;
@@ -143,7 +143,7 @@
                     align-items: center;
                 }
 
-                #message {
+                #welcome-message {
                     order: 0;
                     margin: 0 !important;
                     bottom: 0 !important;
@@ -277,14 +277,6 @@
             </div>
         </header>
 
-        <div id="message">
-            <div id="message-actions">
-                <paper-icon-button icon="chameleon:close" on-tap="closeInfoMessage"></paper-icon-button>
-            </div>
-
-            <div id="message-content">Please excuse us while we work to improve our site. More information is coming soon!</div>
-        </div>
-
         <section id="content">            
             <nav>
                 <div class="nav-link">
@@ -326,16 +318,58 @@
         <chameleon-footer></chameleon-footer>
     </template>
 
-    <script>
-            class ChameleonHome extends Polymer.Element {
-                static get is() { return 'chameleon-home' }
+    <script type="module">
+        import * as firebase from 'firebase';
 
-                closeInfoMessage() {
-                    this.$.message.remove();
-                }
+        class ChameleonHome extends Polymer.Element {
+            static get is() { return 'chameleon-home' }
+
+            ready() {
+                super.ready();
+
+                console.log("Splash loaded, running first frame scripts.");
+
+                Polymer.RenderStatus.afterNextRender(this, this.secondFrame);
             }
-    
-            customElements.define(ChameleonHome.is, ChameleonHome);
-        </script>
 
+            secondFrame() {
+                this.getWelcomeMessage();
+            }
+
+            // Sets up the welcome message popup. 
+            getWelcomeMessage() {
+                let db = firebase.database();
+                let message = db.ref("public/config/welcome-message");
+                message.once('value')
+                    .then((snap) => { 
+                        let messageConfig = snap.val();
+                        if(!messageConfig.enabled) return;
+                        let div = document.createElement('div');
+                        div.id = "welcome-message";
+
+                        // <div id="message-actions"><paper-icon-button icon="chameleon:close" on-tap="closeInfoMessage"></paper-icon-button></div>
+                        let closeWelcomeMessage = document.createElement("div");
+                        closeWelcomeMessage.id = "message-actions";
+                        let closeWelcomeButton = document.createElement('paper-icon-button');
+                        closeWelcomeButton.icon = 'chameleon:close';
+                        closeWelcomeButton.addEventListener('tap', (e) => { 
+                            let welcomeDiv = e.target.parentElement.parentElement; 
+                            welcomeDiv.remove();
+                        });
+
+                        closeWelcomeMessage.appendChild(closeWelcomeButton);
+                        div.appendChild(closeWelcomeMessage);
+                        
+                        let innerDiv = document.createElement('div');
+                        innerDiv.id = "welcome-message-content";
+                        innerDiv.innerHTML = messageConfig.text;
+
+                        div.appendChild(innerDiv);
+                        this.shadowRoot.appendChild(div);
+                    });
+            }
+        }
+
+        customElements.define(ChameleonHome.is, ChameleonHome);
+    </script>
 </dom-module>

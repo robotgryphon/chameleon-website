@@ -1,13 +1,169 @@
 <dom-module id="chameleon-editor">
     <template>
-        Editor
+        <style>
+            :host {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                background-color: aliceblue;
+            }
+
+            .spacer { flex-grow: 1; }
+
+            header#page-header {
+                background-color: cornflowerblue;
+                color: white;
+                padding: .4em;
+                font-size: 14pt;
+                display: flex;
+            }
+
+            a {
+                text-decoration: none;
+                color: currentColor;
+            }
+
+            main {
+                margin: 1em 5vw;
+            }
+
+            h1, h2, h3, h4 {
+                margin: 0;
+                padding: 0;
+            }
+
+            section {
+                margin-bottom: 2.5em;
+            }
+
+            section > header {
+                background-color: var(--chameleon-green, forestgreen);
+                color: white;
+                padding: .4em;
+            }
+
+            section > div {
+                margin: .8em 0;
+                padding: 1em;
+                color: black;
+                background-color: #ffffff;
+            }
+
+            div.form-field {
+                display: grid;
+                grid-template-columns: 30% auto;
+            }
+
+            div.field {
+                margin-bottom: .5em;
+            }
+
+            textarea, input[type="text"] {
+                border: 1px dotted gray;
+                background: none;
+                box-sizing: border-box;
+                padding: .4em;
+                font-size: 12pt;
+                color: currentColor;
+            }
+
+            textarea {
+                width: 100%;
+                resize: vertical;
+                min-height: 5em;
+            }
+
+            div#overlay {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                background-color: rgba(0,0,0,0.8);
+                align-content: center;
+                justify-content: center;
+                align-items: center;
+            }
+
+            div#overlay-inner {
+                font-size: 18pt;
+                text-align: center;
+                border-radius: 8px;
+                padding: 2em;
+                background-color: white;
+            }
+
+            div#overlay-inner a {
+                color: var(--chameleon-blue, cadetblue) !important;
+                font-weight: bold;
+                font-size: 14pt;
+            }
+        </style>
+
+        <header id="page-header">
+            <div>Chameleon Services</div>
+            <div class="spacer"></div>
+            <nav>
+                <a href="/">Home</a>
+            </nav>
+        </header>
+
+        <div id="overlay">
+            <div id="overlay-inner">
+                <div>You must be logged in as an administrator to continue.</div>
+                <div><a href="/">Back to Home</a></div>
+            </div>
+        </div>
+
+        <main>
+            <h1>Site Editor</h1>
+            <hr />
+
+            <section>
+                <header>
+                    <h2>Splash Page</h2>
+                </header>
+
+                <div class="form-field">
+                    <div>Introductory Message</div>
+                    <div>
+                        <div class="field">
+                            <input type="checkbox" name="showIntroMessage" />
+                            <label for="showIntroMessage">Show?</label>
+                        </div>
+
+                        <div class="field">
+                            <textarea value="[[introMessage]]"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <header>
+                    <h2>Team</h2>
+                </header>
+
+                <div>
+                    <p>Not yet implemented, sorry!</p>
+                </div>
+            </section>
+        </main>
     </template>
 
     <script>
-        console.log("Editor loaded.");
-        
         export class ChameleonEditor extends Polymer.Element {
             static get is() { return 'chameleon-editor' }
+
+            static get properties() {
+                return {
+                    introMessage: {
+                        type: String,
+                        value: "Please excuse us while we work to improve our site. More information is coming soon!"
+                    }
+                }
+            }
         }
 
         customElements.define(ChameleonEditor.is, ChameleonEditor);

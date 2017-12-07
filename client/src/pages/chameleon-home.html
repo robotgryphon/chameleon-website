@@ -113,7 +113,8 @@
                 box-sizing: border-box;
                 flex-grow: 1;
                 background: forestgreen url('/media/wood.jpg') repeat center center;
-                background-size: cover;
+                background-size: cover;                                
+                padding-top: 1em;
                 padding-bottom: 1em;
             }
 
@@ -304,15 +305,6 @@
             <div id="content-wrapper">
                 <!-- Insert HTML HERE -->
             </div>
-            
-            <!-- <div id="mail-addr">
-                <span>Mailing Address:</span>
-                <address>
-                    1235 Kimball Road
-                    <br />
-                    Venice, FL 34293
-                </address>
-            </div> -->
         </section>
 
         <chameleon-footer></chameleon-footer>
@@ -326,9 +318,6 @@
 
             ready() {
                 super.ready();
-
-                console.log("Splash loaded, running first frame scripts.");
-
                 Polymer.RenderStatus.afterNextRender(this, this.secondFrame);
             }
 

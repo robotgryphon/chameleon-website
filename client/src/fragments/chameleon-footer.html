@@ -6,15 +6,19 @@
             }
             
             footer {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                justify-content: space-around;
+                display: grid;
+                padding: 1em;
+                grid-template-columns: repeat(3, 30%);
+                grid-column-gap: calc((100% / 3) / 6);
                 background-color: var(--chameleon-blue, navy);
                 color: white;
-                padding-top: 1em;
                 border-top: 3px solid white;
-                padding-bottom: 1em;
+            }
+
+            footer a {
+                color: currentColor;
+                text-decoration: none;
+                border-bottom: 1px dotted currentColor;
             }
             
             footer > section {
@@ -30,15 +34,7 @@
                 border-bottom: 1px solid gray;
             }
 
-            nav {
-                display: block;
-            }
-
-            nav > a {
-                color: white;
-                text-decoration: none;
-                display: block;
-            }
+            nav { display: block; }
 
             @media screen and (max-width: 600px) {
                 footer {
@@ -51,26 +47,95 @@
 
                 }
             }
+
+            div#mail-addr {
+
+            }
         </style>
 
         <footer>
             <section>
                 <h5>Helpful Links</h5>
                 <nav>
-                    <a href="/jobs">Employment Application</a>
-                    <a href="/">Request an estimate (Free!)</a>
+                    <div><a href="/jobs">Employment Application</a></div>
+                    <div><a href="/">Request an estimate (Free!)</a></div>
                 </nav>
             </section>
 
             <section>
-                &nbsp;
+                <h5>Mailing Address:</h5>
+                <address>
+                    1235 Kimball Road
+                    <br />
+                    Venice, FL 34293
+                </address>
+
+                <div>
+                    <span><iron-icon icon="cs:mail"></iron-icon></span>
+                    <span><a href="mailto:info@chameleon-services.com">info@chameleon-services.com</a></span>
+                </div>
+            </section>
+
+            <section>
+                <h5>Other Links:</h5>
+                <nav>
+                    <template is="dom-if" if="[[admin]]">
+                        <div><a href="/editor">Site Editor</a></div>
+                    </template>
+
+                    <template is="dom-if" if="[[!admin]]">
+                        <div><a href="#" on-tap="sendLoginRequest">Login</a></div>
+                    </template>
+                </nav>
             </section>
         </footer>
     </template>
 
-    <script>
+    <script type="module">
+        import * as firebase from 'firebase';
+
         export class ChameleonFooter extends Polymer.Element {
             static get is() { return 'chameleon-footer' }
+
+            static get properties() {
+                return {
+                    admin: {
+                        type: Boolean,
+                        value: false
+                    }
+                }
+            }
+
+            ready() {
+                super.ready();
+                firebase.auth().onAuthStateChanged(this.authChanged.bind(this));
+            }
+
+            authChanged(user) {
+                if(user) {
+                    firebase.database().ref(`admins/${user.uid}`)
+                        .once('value')
+                        .then((snap) => this.admin = snap.val());
+                }
+            }
+
+            sendLoginRequest() {
+                let auth = firebase.auth();
+                if(auth.currentUser) {
+                    console.log(`You are already signed in as ${auth.currentUser.displayName}.`);
+                    return;
+                }
+
+                console.log("Not signed in, using Google..");
+                let gp = new firebase.auth.GoogleAuthProvider();
+                gp.addScope('profile');
+                gp.addScope('email');
+                firebase.auth().signInWithPopup(gp)
+                    .then((result) => {
+                        let token = result.credential.accessToken;
+                        let user = result.user;
+                    });
+            }
         }
 
         customElements.define(ChameleonFooter.is, ChameleonFooter);

@@ -106,6 +106,7 @@
             }
 
             _urlChanged(newPage) {
+                // Fallback to home route if not defined otherwise
                 if(!this.urlData || !this.urlData.page || this.urlData.page == '/') {
                     this.page = 'home';
                     return;
@@ -118,8 +119,6 @@
                         this.openOverlay('jobs');
                         return;
                 }
-
-                this.page = this.urlData.page;
             }
         }
 

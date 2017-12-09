@@ -1,5 +1,6 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
 
   // Tell Weback to output our bundle to ./dist/bundle.js
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, '..', 'build')
   },
   // Tell Webpack which directories to look in to resolve import statements.
@@ -58,9 +59,9 @@ module.exports = {
       template: path.resolve(__dirname, 'src/index.ejs'),
       inject: false
     }),
-    // This plugin will copy files over for us without transforming them.
-    // That's important because the custom-elements-es5-adapter.js MUST
-    // remain in ES2015.
+    
+    new webpack.optimize.CommonsChunkPlugin({ name: 'common' }),
+
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, 'bower_components/webcomponentsjs/*.js'),

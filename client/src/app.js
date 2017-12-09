@@ -1,1 +1,1 @@
-import './cs-shell.html';
+import './chameleon-app.html';

@@ -1,5 +1,5 @@
-<link rel="import" href="../fragments/chameleon-banner.html">
-<link rel="import" href="../fragments/chameleon-footer.html">
+<link rel="import" href="../../fragments/chameleon-banner.html">
+<link rel="import" href="../../fragments/chameleon-footer.html">
 
 <dom-module id="chameleon-home">
     <template>
@@ -77,32 +77,6 @@
                 letter-spacing: .05em;
             }
 
-            div#welcome-message {
-                position: fixed;
-                bottom: 1em;
-                align-self: center;
-                background-color: rgba(202, 30, 30, 0.8);
-                border: 2px solid white;
-                padding: 0 .2em 1em;
-                color: white;
-                z-index: 9000;
-            }
-
-            div#welcome-message #message-actions {
-                text-align: right;
-                float: right;
-                margin-left: 1em;
-            }
-
-            div#welcome-message div#welcome-message-content {
-                font-size: 20pt;
-                font-variant-caps: all-petite-caps;
-                text-align: center;
-                font-weight: bold;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                padding: 1em;
-            }
-
             address#telephone {
                 font-size: 1.2em;
                 font-style: normal;
@@ -112,7 +86,7 @@
             section#content {
                 box-sizing: border-box;
                 flex-grow: 1;
-                background: forestgreen url('/media/wood.jpg') repeat center center;
+                background: forestgreen url("/media/wood.jpg") repeat center center;
                 background-size: cover;                                
                 padding-top: 1em;
                 padding-bottom: 1em;
@@ -125,31 +99,6 @@
                 padding: 1em;
                 text-align: left;
                 margin: 1em 2em 0;
-            }
-
-            @media screen and (orientation: portrait) and (max-width: 1060px) {
-                header {
-                    height: 40vh;
-                }
-            }
-
-            @media screen and (max-width: 780px) {
-
-                header {
-                    height: fit-content;
-                }
-
-                .banner-overlay-panel {
-                    width: 100%;
-                    align-items: center;
-                }
-
-                #welcome-message {
-                    order: 0;
-                    margin: 0 !important;
-                    bottom: 0 !important;
-                    text-align: center;
-                }
             }
 
             #overlay-topbar {
@@ -183,13 +132,36 @@
                 border: 5px solid white;
             }
 
-            @media screen and (min-width: 761px) {
-                nav > .nav-link {
-                    width: calc(100% / 5);
-                }    
+            @media screen and (orientation: portrait) and (max-width: 1060px) {
+                header {
+                    height: 40vh;
+                }
             }
 
+            @media screen and (max-width: 780px) {
 
+                header {
+                    height: fit-content;
+                }
+
+                .banner-overlay-panel {
+                    width: 100%;
+                    align-items: center;
+                }
+
+                section#content {
+                    background-image: url("/media/wood-downsized.jpg");
+                }
+            }
+
+            /* Larger screens */
+            @media screen and (min-width: 761px) {                
+                nav > .nav-link {
+                    width: calc(100% / 5);
+                }
+            }
+
+            /* Medium screens */
             @media screen and (min-width: 601px) and (max-width: 760px) {
                 nav {
                     width: 95%;
@@ -207,6 +179,7 @@
                 }
             }
 
+            /* Small screens */
             @media screen and (max-width: 600px) {
                 nav {
                     display: block;
@@ -302,62 +275,15 @@
     
             </nav>
 
-            <!-- <div id="content-wrapper">
-                <!-- Insert HTML HERE -->
-            </div> -->
+            <!-- <div id="content-wrapper"></div> -->
         </section>
 
         <chameleon-footer></chameleon-footer>
     </template>
 
     <script type="module">
-        import * as firebase from 'firebase';
-        import { isConfigStillEnabled } from '../scripts/config-utils';
-
         class ChameleonHome extends Polymer.Element {
             static get is() { return 'chameleon-home' }
-
-            ready() {
-                super.ready();
-                Polymer.RenderStatus.afterNextRender(this, this.secondFrame);
-            }
-
-            secondFrame() {
-                this.getWelcomeMessage();
-            }
-
-            // Sets up the welcome message popup. 
-            getWelcomeMessage() {
-                let db = firebase.database();
-                let message = db.ref("config/splash-page/intro-message");
-                message.once('value')
-                    .then((snap) => { 
-                        let messageConfig = snap.val();
-                        if(!messageConfig || !isConfigStillEnabled(messageConfig)) return;
-                        let div = document.createElement('div');
-                        div.id = "welcome-message";
-
-                        // <div id="message-actions"><paper-icon-button icon="chameleon:close" on-tap="closeInfoMessage"></paper-icon-button></div>
-                        let closeWelcomeMessage = document.createElement("div");
-                        closeWelcomeMessage.id = "message-actions";
-                        let closeWelcomeButton = document.createElement('paper-icon-button');
-                        closeWelcomeButton.icon = 'chameleon:close';
-                        closeWelcomeButton.addEventListener('tap', (e) => { 
-                            let welcomeDiv = e.target.parentElement.parentElement; 
-                            welcomeDiv.remove();
-                        });
-
-                        closeWelcomeMessage.appendChild(closeWelcomeButton);
-                        div.appendChild(closeWelcomeMessage);
-                        
-                        let innerDiv = document.createElement('div');
-                        innerDiv.id = "welcome-message-content";
-                        innerDiv.innerHTML = messageConfig.text;
-
-                        div.appendChild(innerDiv);
-                        this.shadowRoot.appendChild(div);
-                    });
-            }
         }
 
         customElements.define(ChameleonHome.is, ChameleonHome);

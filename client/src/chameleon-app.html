@@ -6,9 +6,9 @@
 <link rel="import" href="../bower_components/app-route/app-location.html"> 
 <link rel="import" href="./chameleon-iconset-svg.html">
 
-<link rel="import" href="./pages/chameleon-home.html">
+<link rel="import" href="./fragments/chameleon-intro-message.html">
 
-<dom-module id="cs-shell">
+<dom-module id="chameleon-app">
     <template>
         <style>
             :host {
@@ -40,17 +40,57 @@
             .flex-spacer {
                 flex-grow: 1;
             }
+
+            chameleon-intro-message[unresolved] { display: none !important; }
+
+            iron-pages div[page="meta"] {
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                width: 100%;
+                height: 100vh;
+                justify-content: center;
+                align-items: center;
+                font-size: 16pt;
+                background-image: url("/media/wood-downsized.jpg");
+            }
+
+            iron-pages div[page="meta"] > div {
+                padding: 2em;
+                background-color: var(--chameleon-dark-green);
+                color: white;
+                border-radius: 8px;
+                text-align: center;
+            }
+
+            iron-pages div[page="meta"] div#meta-message {
+                margin: .8em 0 0;
+            }
         </style>
 
-        <aside>
-            <app-location route="{{url}}"></app-location>
-            <app-route route="{{url}}" pattern="/:page" data="{{urlData}}"></app-route>
-            <iron-media-query query="(max-width: 780px)" query-matches="{{smallScreen}}"></iron-media-query>
-        </aside>
+        <app-location route="{{url}}"></app-location>
+        <app-route route="{{url}}" pattern="/:page" data="{{urlData}}"></app-route>
+        <iron-media-query query="(max-width: 780px)" query-matches="{{smallScreen}}"></iron-media-query>
+
+        <chameleon-intro-message unresolved></chameleon-intro-message>
 
         <iron-pages attr-for-selected="page" selected="[[page]]">
-            <chameleon-home page="home"></chameleon-home>
-            <chameleon-editor page="editor"></chameleon-editor>
+            <div page="meta">
+                <div>
+                    <picture>
+                        <source srcset="/media/logo-lg.png" />
+                        <img src="/media/logo-md.png" />
+                    </picture>
+
+                    <!-- LOGO HERE -->
+                    <div id="meta-message">
+                        <iron-pages selected="[[metaState]]" attr-for-selected="meta">
+                            <div meta="loading">Please wait, your page is loading...</div>
+                            <div meta="not-found">Page not found. Are you sure you typed the URL correctly?</div>
+                        </iron-pages>
+                    </div>
+                </div>
+            </div>
         </iron-pages>
     </template>
 
@@ -61,12 +101,13 @@
 
         class ChameleonShell extends ChameleonState(Polymer.Element) {
             static get is() {
-                return 'cs-shell';
+                return 'chameleon-app';
             }
 
             static get properties() {
                 return {
                     page: String,
+                    metaState: String,
                     urlData: {
                         type: Object,
                         observer: "_urlChanged"
@@ -84,9 +125,23 @@
 
             constructor() {
                 super();
+                this.metaState = "loading";
+                this.page = "meta";
+
                 firebase.initializeApp(firebaseConfig);
                 firebase.auth().onAuthStateChanged(this.authChanged.bind(this));
                 Polymer.RenderStatus.afterNextRender(this, this.secondFrame);
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+
+                this.pageController = this.shadowRoot.querySelector("iron-pages");
+            }
+
+            ready() {
+                super.ready();                
+                this.removeAttribute('unresolved');
             }
 
             authChanged(user) {
@@ -111,13 +166,32 @@
             }
 
             _urlChanged(newPage) {
+
+                if(!this.pageController) this.pageController = this.shadowRoot.querySelector("iron-pages");
+
                 // Fallback to home route if not defined otherwise
                 if(!this.urlData || !this.urlData.page || this.urlData.page == '/') {
-                    this.page = 'home';
+                    this.urlData = { page: "home" };
                     return;
                 }
 
-                this.page = newPage.page;
+                let node = this.pageController.querySelector(`[page=${newPage.page}]`);
+                if(!node) {
+                    this.metaState = "loading";
+                    this.page = "meta";
+
+                    import('./modules/chameleon-' + newPage.page)
+                        .then(_ => {
+                            let newNode = document.createElement('chameleon-' + newPage.page);
+                            newNode.setAttribute('page', newPage.page);
+                            this.pageController.appendChild(newNode);
+                            this.page = newPage.page;
+                        })
+                        
+                        .catch(_ => this.metaState = "not-found");
+                } else {
+                    this.page = newPage.page;
+                }
             }
         }
 

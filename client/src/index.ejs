@@ -9,7 +9,6 @@
     <meta property="og:image" content="https://chameleon-services.com/media/logo-lg.png">
     <meta property="og:title" content="Chameleon Services">
     
-    <link href="https://fonts.googleapis.com/css?family=Bad+Script" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#103073">
 
@@ -19,10 +18,23 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        chameleon-app[unresolved] {
+          background-color: aliceblue;
+          text-align: center;
+          font-size: 16pt;
+          display: block;
+          height: 100vh;
+          width: 100vw;
+          padding: 1em;
+          box-sizing: border-box;
+        }
     </style>
   </head>
   <body>
-    <cs-shell></cs-shell>
+    <chameleon-app unresolved>
+      Loading, please wait..
+    </chameleon-app>
 
     <noscript>
       <style>
@@ -50,43 +62,37 @@
         </div>
       </section>
     </noscript>
-
-    <!--
-      Feature detect Custom Elements support. If the browser DOES support Custom
-      Elements then we need to load the custom-elements-es5-adapter because
-      our project code has been transpiled from ES2015 to ES5 and native Custom
-      Elements expect elements will be registered as classes.
-    -->
-    <div id="ce-es5-shim">
-      <script type="text/javascript">
-        if (!window.customElements) {
-          var ceShimContainer = document.querySelector('#ce-es5-shim');
-          ceShimContainer.parentElement.removeChild(ceShimContainer);
-        }
-      </script>
-      <script type="text/javascript" src="/bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>
-    </div>
     
-    <!--
-      Use the webcomponents-loader script which will feature detect which Web
-      Components features are missing and lazy load the appropriate polyfills.
-      When we hear the 'WebComponentsReady' event from the polyfill bundle we can
-      insert our 'bundle.js'.
-    -->
+    <!-- Load web components (and inject bundler if required) -->
+    <script src="bower_components/webcomponentsjs/webcomponents-loader.js" async></script>
     <script>
       (function() {
         document.addEventListener('WebComponentsReady', function componentsReady() {
           document.removeEventListener('WebComponentsReady', componentsReady, false);
           var script = document.createElement('script');
-          script.src = '<%= htmlWebpackPlugin.files.js[0] %>';
-          var refScript = document.getElementsByTagName('script')[0];
-          refScript.parentNode.insertBefore(script, refScript);
+          script.src = 'main.bundle.js';
+          script.async = true;
+
+          let commonScript = document.createElement('script');
+          commonScript.src = 'common.bundle.js';
+          commonScript.async = true;
+
+          document.body.appendChild(script);
+          document.body.appendChild(commonScript);
         }, false);
       })();
     </script>
-    <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="//www.siteminds.net/m/1.7/mind_loader.php?pid=x3Qa8Bx92&cast_id=v1532315&autoplay=1&avname=goose&wc=1&avnum=25&band_type=av" async></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108859618-1"></script>
+
+    <script type="text/javascript">
+      // Load in "how did you find us" after a few seconds
+      setTimeout(_ => {
+        let findScript = document.createElement('script');
+        findScript.async = true;
+        findScript.src = "//www.siteminds.net/m/1.7/mind_loader.php?pid=x3Qa8Bx92&cast_id=v1532315&autoplay=1&avname=goose&wc=1&avnum=25&band_type=av";
+        document.body.appendChild(findScript);
+      }, 5000);
+    </script>
+
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}

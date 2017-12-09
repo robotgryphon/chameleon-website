@@ -1,19 +1,11 @@
 export function isConfigStillEnabled(config) {
-    if('enable-type' in config) {
-        switch(config['enable-type']) {
-            case 'enabled':
-                return true;
+    if('force-enabled' in config && config['force-enabled']) return true;
+    
+    var before, after;
+    if('enable-on' in config) before = config['enable-on'];
+    if('disable-on' in config) after = config['disable-on'];
 
-            case 'enable-until':
-                let now = Date.now();
-                let til = new Date(config['enable-until']);
-
-                return til - now > 0;
-
-            default:
-                return false;
-        }
-    }
-
-    return true;
+    let now = new Date();
+    if(before <= now && after >= now) return true;
+    return false;
 }

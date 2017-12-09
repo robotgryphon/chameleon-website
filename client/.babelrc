@@ -1,9 +1,12 @@
 {
+  "comments": false,
   "presets": [
-    ["env", {
+    ["@babel/env", {
       "targets": {
-        "browsers": ["last 2 versions"]
+        "browsers": ["> 1% in US", "not ios_saf < 10", "not samsung < 5", "not ie > 1"]
       }
     }]
-  ]
+  ],
+
+  "plugins": ["@babel/syntax-dynamic-import"]
 }

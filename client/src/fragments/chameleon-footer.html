@@ -77,15 +77,15 @@
                 <h5>Other Links:</h5>
                 <nav>
                     <template is="dom-if" if="[[loggedIn]]">
-                        <div><a href="#" on-tap="logout">Logout ([[displayName]])</a></div>
+                        <div><a href="#" on-click="logout">Logout ([[displayName]])</a></div>
                     </template>
 
                     <template is="dom-if" if="[[admin]]">
-                        <div><a href="/editor">Site Editor</a></div>
+                        <div><a href="/admin">Site Editor</a></div>
                     </template>
 
-                    <template is="dom-if" if="[[!admin]]">
-                        <div><a href="#" on-tap="sendLoginRequest">Login</a></div>
+                    <template is="dom-if" if="[[!loggedIn]]">
+                        <div><a href="#" on-click="sendLoginRequest">Login</a></div>
                     </template>
                 </nav>
             </section>
@@ -93,7 +93,8 @@
     </template>
 
     <script type="module">
-        import * as firebase from 'firebase';
+        import firebase from '@firebase/app';
+        import '@firebase/auth';
         import ChameleonState from '../scripts/chameleon-state.js';
 
         export class ChameleonFooter extends ChameleonState(Polymer.Element) {
@@ -118,6 +119,16 @@
                 }
             }
 
+            logout() {
+                this.dispatch({ type: 'USER_LOGGED_OUT '});
+                firebase.auth().signOut();
+
+                // TODO: Fix this so this isn't manual
+                this.loggedIn = false;
+                this.admin = false;
+                this.displayName = "Guest";
+            }
+
             sendLoginRequest() {
                 let auth = firebase.auth();
                 if(auth.currentUser) {
@@ -125,7 +136,6 @@
                     return;
                 }
 
-                console.log("Not signed in, using Google..");
                 let gp = new firebase.auth.GoogleAuthProvider();
                 gp.addScope('profile');
                 gp.addScope('email');

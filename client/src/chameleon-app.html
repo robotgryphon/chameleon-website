@@ -95,7 +95,8 @@
     </template>
 
     <script type="module">
-        import * as firebase from 'firebase';
+        import firebase from '@firebase/app';
+        import '@firebase/auth';
         import { firebaseConfig } from './scripts/config.js';
         import ChameleonState from './scripts/chameleon-state.js';
 
@@ -130,7 +131,6 @@
 
                 firebase.initializeApp(firebaseConfig);
                 firebase.auth().onAuthStateChanged(this.authChanged.bind(this));
-                Polymer.RenderStatus.afterNextRender(this, this.secondFrame);
             }
 
             connectedCallback() {
@@ -144,25 +144,22 @@
                 this.removeAttribute('unresolved');
             }
 
-            authChanged(user) {
+            async authChanged(user) {
                 if(user) {
-                    firebase.database().ref(`admins/${user.uid}`)
-                        .once('value')
-                        .then((snap) => {
-                            this.dispatch({
-                                type: 'AUTH_CHANGED',
-                                user: {
-                                    isAdmin: snap.val(),
-                                    uid: user.uid,
-                                    displayName: user.displayName,
-                                    isLoggedIn: true
-                                }
-                            });
+                    let admins = firebase.firestore().collection('admins');
+                    let userAdmin = await admins.doc(user.uid).get();
+                    if(userAdmin.exists) {
+                        this.dispatch({
+                            type: 'AUTH_CHANGED',
+                            user: {
+                                isAdmin: true,
+                                uid: user.uid,
+                                displayName: user.displayName,
+                                isLoggedIn: true
+                            }
                         });
+                    }
                 }
-            }
-
-            secondFrame() {
             }
 
             _urlChanged(newPage) {

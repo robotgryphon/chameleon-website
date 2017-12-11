@@ -100,6 +100,14 @@
         export class ChameleonFooter extends ChameleonState(Polymer.Element) {
             static get is() { return 'chameleon-footer' }
 
+            static get actions() {
+                return {
+                    userLogout() {
+                        return { type: 'USER_LOGGED_OUT' }
+                    }
+                }
+            }
+
             static get properties() {
                 return {
                     displayName: {
@@ -120,13 +128,7 @@
             }
 
             logout() {
-                this.dispatch({ type: 'USER_LOGGED_OUT '});
-                firebase.auth().signOut();
-
-                // TODO: Fix this so this isn't manual
-                this.loggedIn = false;
-                this.admin = false;
-                this.displayName = "Guest";
+                this.dispatch('userLogout');
             }
 
             sendLoginRequest() {

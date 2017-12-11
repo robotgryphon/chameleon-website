@@ -1,6 +1,9 @@
 import { createStore } from 'redux';
 import PolymerRedux from './polymer-redux-fork';
 
+import firebase from '@firebase/app';
+import '@firebase/auth';
+
 let guestState = {
     uid: '',
     displayName: 'Guest',
@@ -21,7 +24,7 @@ const reducer = (state, action) => {
             });
 
         case 'USER_LOGGED_OUT':
-            console.log("user logout event");
+            firebase.auth().signOut();
             return Object.assign({}, state, { user: guestState });
 
         // Return the state, nothing changed.

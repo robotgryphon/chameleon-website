@@ -7,6 +7,7 @@
             
             footer {
                 display: grid;
+                position: relative;
                 box-sizing: border-box;
                 padding: 1em;
                 grid-template-columns: repeat(3, 1fr);
@@ -16,7 +17,7 @@
                 border-top: 3px solid white;
             }
 
-            footer a {
+            nav a, a.link {
                 color: currentColor;
                 text-decoration: none;
                 border-bottom: 1px dotted currentColor;
@@ -36,6 +37,15 @@
             }
 
             nav { display: block; }
+
+            #badge {
+                grid-column: span 3;
+                display: flex;
+                justify-content: flex-end;
+                padding: 1em;
+            }
+
+            #badge a { margin: 0 !important; }
 
             @media screen and (max-width: 600px) {
                 footer {
@@ -69,7 +79,7 @@
 
                 <div>
                     <span><iron-icon icon="cs:mail"></iron-icon></span>
-                    <span><a href="mailto:info@chameleon-services.com">info@chameleon-services.com</a></span>
+                    <span><a class="link" href="mailto:info@chameleon-services.com">info@chameleon-services.com</a></span>
                 </div>
             </section>
 
@@ -88,6 +98,14 @@
                         <div><a href="#" on-click="sendLoginRequest">Login</a></div>
                     </template>
                 </nav>
+            </section>
+
+            <!-- HomeAdvisor Badge -->
+            <section id="badge">
+                <a href="//www.homeadvisor.com/rated.KahunaLLC.51637650.html" style="display: block; margin: 0 auto;">
+                    <img alt="HomeAdvisor Screened & Approved" style="display:block;" 
+                    src="//www.homeadvisor.com/images/sp-badges/soap-solid-border.png?sp=51637650&key=1062e017391797b3da1200fa17d77a09" />
+                </a>
             </section>
         </footer>
     </template>

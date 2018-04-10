@@ -1,11 +1,6 @@
-node_modules/
-bower_components/
-build/
-
-Thumbs.db
+node_modules
+build
 .env
 
-functions/index.js
-functions/templates/**
-firebase-debug.log
-functions/.runtimeconfig.json
+# Temporary
+client-old

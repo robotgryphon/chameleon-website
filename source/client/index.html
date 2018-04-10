@@ -32,9 +32,55 @@
     </style>
   </head>
   <body>
-    <chameleon-app unresolved>
-      Loading, please wait..
-    </chameleon-app>
+    <header>
+        <iron-media-query query="(max-width: 780px)" query-matches="{{smallScreen}}"></iron-media-query>
+        <template is="dom-if" if="[[!smallScreen]]">
+            <chameleon-banner></chameleon-banner>
+        </template>
+
+        <!-- <cs-schedule-block></cs-schedule-block> -->
+
+        <div class="banner-overlay-panel" id="header-left">
+            <div id="banner-and-contact">
+                <div id="banner-logo">
+                    <img src="/media/logo-md-border.png" alt="Chameleon Services logo" width="240" />
+                </div>
+
+                <div id="contact-wrapper">
+                    <div id="tel-wrap">
+                        <address id="telephone">(941) 893.9977</address>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="content">            
+        <nav>
+            <div class="nav-link">
+                <span>Home Watch</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Pressure Washing</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Maintenance and Repair</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Lawn Care</span>
+            </div>
+
+            <div class="nav-link">
+                <span>Other Services</span>
+            </div>
+
+        </nav>
+
+        <!-- <div id="content-wrapper"></div> -->
+    </section>
 
     <noscript>
       <style>
@@ -62,26 +108,6 @@
         </div>
       </section>
     </noscript>
-    
-    <!-- Load web components (and inject bundler if required) -->
-    <script src="bower_components/webcomponentsjs/webcomponents-loader.js" async></script>
-    <script>
-      (function() {
-        document.addEventListener('WebComponentsReady', function componentsReady() {
-          document.removeEventListener('WebComponentsReady', componentsReady, false);
-          var script = document.createElement('script');
-          script.src = 'main.bundle.js';
-          script.async = true;
-
-          let commonScript = document.createElement('script');
-          commonScript.src = 'common.bundle.js';
-          commonScript.async = true;
-
-          document.body.appendChild(script);
-          document.body.appendChild(commonScript);
-        }, false);
-      })();
-    </script>
 
     <script type="text/javascript">
       // Load in "how did you find us" after a few seconds

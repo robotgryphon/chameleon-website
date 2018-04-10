@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+      "target": "es5",
+      "sourceMap": false,
+      "strict": true,
+      "moduleResolution": "node",
+      "strictNullChecks": false,
+      "lib": ["dom", "es6", "es2015.promise"]      
+  }
+}

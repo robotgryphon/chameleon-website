@@ -1,0 +1,54 @@
+@import "_branding";
+
+footer {
+    display: grid;
+    position: relative;
+    box-sizing: border-box;
+    padding: 1em;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: calc((100% / 3) / 6);
+    background-color: $chameleon-blue;
+    color: white;
+    border-top: 3px solid white;
+
+    nav a, a.link {
+        color: currentColor;
+        text-decoration: none;
+        border-bottom: 1px dotted currentColor;
+    }
+
+    section {
+        display: block;
+        min-width: calc(100% / 3);
+        box-sizing: border-box;
+    }
+
+    h5 {
+        margin-top: 0;
+        margin-bottom: 0.2em;
+        padding-bottom: 0.15em;
+        border-bottom: 1px solid gray;
+    }
+    
+    nav { display: block; }
+}
+
+#badge {
+    grid-column: span 3;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+}
+
+#badge a { margin: 0 !important; }
+
+@media screen and (max-width: 600px) {
+    footer {
+        display: block;
+
+        section {
+            width: 100% !important;
+            padding: 1em;
+        }
+    }
+}

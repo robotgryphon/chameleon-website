@@ -1,15 +1,18 @@
 @import "_branding";
 
 footer {
-    display: grid;
+    display: flex;
     position: relative;
     box-sizing: border-box;
     padding: 1em;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: calc((100% / 3) / 6);
-    background-color: $chameleon-blue;
+    flex-basis: row nowrap;
+    align-items: center;
+
     color: white;
     border-top: 3px solid white;
+    background: $chameleon-blue url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'" +
+        "width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC'"  +
+        "fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 
     nav a, a.link {
         color: currentColor;
@@ -19,25 +22,16 @@ footer {
 
     section {
         display: block;
-        min-width: calc(100% / 3);
         box-sizing: border-box;
     }
 
     h5 {
         margin-top: 0;
         margin-bottom: 0.2em;
-        padding-bottom: 0.15em;
-        border-bottom: 1px solid gray;
+        width: fit-content;
     }
     
     nav { display: block; }
-}
-
-#badge {
-    grid-column: span 3;
-    display: flex;
-    justify-content: flex-end;
-    padding: 1em;
 }
 
 #badge a { margin: 0 !important; }
@@ -49,6 +43,67 @@ footer {
         section {
             width: 100% !important;
             padding: 1em;
+        }
+    }
+}
+
+
+a {
+    text-decoration: none !important;
+    color: currentColor !important;
+}
+
+div#rate-us-button {
+    width: fit-content;
+    padding: 1em;
+    text-align: center;
+    color: #ccc;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+
+    div#rate-us-stars {
+        text-align: center;
+        font-size: 2em;
+        padding: 0 .4em;
+        margin: .2em 0;
+        font-weight: normal;
+        border: 3px solid lighten($chameleon-blue, 20);
+        border-radius: .4em;
+    }
+}
+
+footer .badge {
+    max-height: 8em;
+
+    img {
+        max-height: 7em;
+    }
+}
+
+footer section#footer-contact {
+    flex-grow: 1;
+    text-align: left;
+    align-self: flex-start;
+
+    div#footer-contact-info {
+        width: fit-content;
+        padding: .4em .2em;
+        border-top: 1px dotted lighten($chameleon-blue, 30);
+
+        & > div {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            margin-bottom: .4em;
+    
+            .emoji {
+                display: inline-block;
+                width: 1.4em;
+                text-align: left;
+                box-sizing: border-box;
+                padding-right: 1.6em;
+            }
         }
     }
 }

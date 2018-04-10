@@ -85,47 +85,39 @@
     </section>
 
     <footer>
-        <section>
-            <h5>Helpful Links</h5>
-            <nav>
-                <!-- <div><a href="/jobs">Employment Application</a></div> -->
-                <div><a href="/">Request an estimate (Free!)</a></div>
-            </nav>
-        </section>
+        <section id="footer-contact">
+            <h5>Need to get ahold of us?</h5>
+            
+            <div id="footer-contact-info">
+                <div>
+                    <span class="emoji">📞</span>
+                    <span>(941) 893.9977</span>
+                </div>
 
-        <section>
-            <h5>Mailing Address:</h5>
-            <address>
-                1235 Kimball Road
-                <br />
-                Venice, FL 34293
-            </address>
+                <div>
+                    <span class="emoji">🏢</span>
+                    <address>1235 Kimball Road<br /> Venice, FL 34293</address>
+                </div>
 
-            <div>
-                <span><iron-icon icon="cs:mail"></iron-icon></span>
-                <span><a class="link" href="mailto:info@chameleon-services.com">info@chameleon-services.com</a></span>
+                <div>
+                    <span class="emoji">📧</span>
+                    <span><a class="link" href="mailto:info@chameleon-services.com">info@chameleon-services.com</a></span>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h5>Other Links:</h5>
-            <nav>
-                <template is="dom-if" if="[[loggedIn]]">
-                    <div><a href="#" on-click="logout">Logout ([[displayName]])</a></div>
-                </template>
-
-                <template is="dom-if" if="[[admin]]">
-                    <div><a href="/admin">Site Editor</a></div>
-                </template>
-
-                <template is="dom-if" if="[[!loggedIn]]">
-                    <div><a href="#" on-click="sendLoginRequest">Login</a></div>
-                </template>
-            </nav>
+        <section class="badge">
+            <a href="http://bit.ly/2yWKMVM" target="_blank">
+                <div id="rate-us-button">
+                    <div>If You Like Us</div>
+                    <div id="rate-us-stars">★★★★☆</div>
+                    <div>Rate Us</div>
+                </div>
+            </a>
         </section>
 
         <!-- HomeAdvisor Badge -->
-        <section id="badge">
+        <section class="badge">
             <a href="//www.homeadvisor.com/rated.KahunaLLC.51637650.html" style="display: block; margin: 0 auto;">
                 <img alt="HomeAdvisor Screened &amp; Approved" style="display:block;" 
                 src="//www.homeadvisor.com/images/sp-badges/soap-solid-border.png?sp=51637650&key=1062e017391797b3da1200fa17d77a09" />

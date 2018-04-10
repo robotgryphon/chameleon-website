@@ -32,20 +32,6 @@ header {
     background-color: $chameleon-green;
 }
 
-chameleon-navigation {
-    position: relative;
-    width: 100%;
-    z-index: 30;
-    margin-top: 1em;
-}
-
-chameleon-banner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-
 header > .banner-overlay-panel {
     display: flex;
     flex-direction: column;
@@ -136,6 +122,10 @@ div#content-wrapper {
     section#content {
         background-image: url("/media/wood-downsized.jpg");
     }
+}
+
+address {
+    display: inline-block;
 }
 
 @import "_navigation";

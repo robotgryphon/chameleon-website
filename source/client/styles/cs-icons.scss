@@ -1,0 +1,63 @@
+$font-path: "../fonts" !default;
+
+$cs-office: \e903;
+$cs-phone: \e942;
+$cs-mail: \e945;
+$cs-location: \e947;
+$cs-calendar: \e953;
+
+@font-face {
+  font-family: 'chameleon';
+  src:
+    url('#{$font-path}/chameleon.ttf?dz3kdt') format('truetype'),
+    url('#{$font-path}/chameleon.woff?dz3kdt') format('woff'),
+    url('#{$font-path}/chameleon.svg?dz3kdt#chameleon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="cs-"], [class*=" cs-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'chameleon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@function unicode($str) {
+  @return unquote("\"") + $str + unquote("\"");
+}
+
+.cs-office {
+  &:before {
+    content: unicode($cs-office); 
+  }
+}
+.cs-phone {
+  &:before {
+    content: unicode($cs-phone); 
+  }
+}
+.cs-mail {
+  &:before {
+    content: unicode($cs-mail); 
+  }
+}
+.cs-location {
+  &:before {
+    content: unicode($cs-location); 
+  }
+}
+.cs-calendar {
+  &:before {
+    content: unicode($cs-calendar); 
+  }
+}
+

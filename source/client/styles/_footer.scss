@@ -94,16 +94,8 @@ footer section#footer-contact {
         & > div {
             display: flex;
             flex-direction: row;
-            align-items: flex-start;
+            align-items: center;
             margin-bottom: .4em;
-    
-            .emoji {
-                display: inline-block;
-                width: 1.4em;
-                text-align: left;
-                box-sizing: border-box;
-                padding-right: 1.6em;
-            }
         }
     }
 }

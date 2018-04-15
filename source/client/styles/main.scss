@@ -23,55 +23,58 @@ body {
 }
 
 header {
-    height: 70vh;
-    padding-bottom: 1em;
+    height: 55vh;
     width: 100%;
     position: relative;
     display: flex;
     flex-direction: row;
     background-color: $chameleon-green;
+    border-bottom: 1px solid black;
+
+    .banner-overlay-panel {
+        display: flex;
+        flex-direction: column;
+        z-index: 25;
+    }
+
+    div#banner-and-contact {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        align-items: center;
+        margin-top: 1.6em;
+        margin-left: 1em;
+    }      
 }
 
-header > .banner-overlay-panel {
-    display: flex;
-    flex-direction: column;
-    z-index: 25;
-}
+@import "_banner";
 
-header div#banner-and-contact {
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    align-items: center;
-    margin-top: 1.6em;
-    margin-left: 1em;
-}      
+div#contact-wrapper {
 
-div#banner-and-contact div#contact-wrapper {
     box-sizing: border-box;
     width: fit-content;
-}
 
-div#tel-wrap {
-    background-color: rgba(16, 48, 115, 0.7) !important;
-    color: white;
-}
+    div {
+        background-color: rgba(30, 150, 30, 0.5);
+        padding: .4em .8em;
+        color: #eee;
+        box-sizing: border-box;
+        border-radius: 4px;
+        align-self: center;
+        text-align: center;
+        margin-bottom: .2em;
+    }
 
-div#contact-wrapper > div {
-    background-color: rgba(30, 150, 30, 0.5);
-    padding: .4em .8em;
-    color: #eee;
-    box-sizing: border-box;
-    border-radius: 4px;
-    align-self: center;
-    text-align: center;
-    margin-bottom: .2em;
-}   
+    span {
+        font-size: .7em;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+    }
 
-div#contact-wrapper span {
-    font-size: .7em;
-    text-transform: uppercase;
-    letter-spacing: .05em;
+    div#tel-wrap {
+        background-color: rgba(16, 48, 115, 0.7) !important;
+        color: white;
+    }
 }
 
 address#telephone {
@@ -126,6 +129,18 @@ div#content-wrapper {
 
 address {
     display: inline-block;
+}
+
+// Global icons
+// Display as a green, circular background and white text.
+.icon {
+    text-align: left;
+    box-sizing: border-box;
+    margin-right: 0.4em;
+    background-color: $chameleon-green;
+    color: white;
+    border-radius: 100%;
+    padding: .4em;
 }
 
 @import "_navigation";

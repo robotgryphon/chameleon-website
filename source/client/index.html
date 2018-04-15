@@ -32,15 +32,11 @@
     </style>
 
     <link rel="stylesheet" href="./styles/main.css" media="screen" />
+    <link rel="stylesheet" href="./styles/cs-icons.css" />
   </head>
   <body>
     <header>
-        <iron-media-query query="(max-width: 780px)" query-matches="{{smallScreen}}"></iron-media-query>
-        <template is="dom-if" if="[[!smallScreen]]">
-            <chameleon-banner></chameleon-banner>
-        </template>
-
-        <!-- <cs-schedule-block></cs-schedule-block> -->
+        <chameleon-banner></chameleon-banner>
 
         <div class="banner-overlay-panel" id="header-left">
             <div id="banner-and-contact">
@@ -90,17 +86,17 @@
             
             <div id="footer-contact-info">
                 <div>
-                    <span class="emoji">📞</span>
+                    <span class="icon cs-phone"></span>
                     <span>(941) 893.9977</span>
                 </div>
 
                 <div>
-                    <span class="emoji">🏢</span>
+                    <span class="icon cs-location"></span>
                     <address>1235 Kimball Road<br /> Venice, FL 34293</address>
                 </div>
 
                 <div>
-                    <span class="emoji">📧</span>
+                    <span class="icon cs-mail"></span>
                     <span><a class="link" href="mailto:info@chameleon-services.com">info@chameleon-services.com</a></span>
                 </div>
             </div>
@@ -169,5 +165,6 @@
       gtag('config', 'UA-108859618-1');
     </script>
     
+    <script type="module" src="./scripts/app.js"></script>
   </body>
 </html>

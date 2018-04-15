@@ -92,9 +92,9 @@ section#content {
     padding-bottom: 1em;
 }
 
-div#content-wrapper {
+main {
     border: 3px double black;
-    background-color: white;
+    background-color: rgba(white, 0.85);
     color: black;
     padding: 1em;
     text-align: left;

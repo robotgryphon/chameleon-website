@@ -28,48 +28,37 @@ let clientTS = createProject("tsconfig.json", {
     target: "es6"
 });
 
-task("build:html", () => {
+task("client:html", () => {
     return src("source/client/**/*.html")
         .pipe(dest("build/client"));
 });
 
-task("build:styles", () => {
+task("client:styles", () => {
     return src("source/client/styles/**/*.scss")
         .pipe(sass())
         .pipe(dest("build/client/styles"));
 });
 
-task("build:fonts", () => {
+task("client:fonts", () => {
     return src("source/client/fonts/**/*")
         .pipe(dest("build/client/fonts"));
 });
 
-task("build:media", () => {
+task("client:media", () => {
     return src("source/client/media/**/*")
         .pipe(dest("build/client/media"));
 });
 
-task("build:scripts", () => {
+task("client:scripts", () => {
     return src("source/client/scripts/**/*")
         .pipe(webpack(wpConfig, wp))
         .pipe(dest("build/client/scripts"));
 });
 
-task("client", series("build:html", "build:styles", "build:fonts", "build:media"));
+task("client", series("client:html", "client:styles", "client:fonts", "client:media"));
 
 // Watch Tasks
 task("watch:html", () => {
-    let pages = task("build:html");
+    let pages = task("client:html");
     watch("source/client/**/*.html", pages);
-});
-
-task("build:server", () => {
-    return src("source/server/**/*.ts")
-        .pipe(ts())
-        .pipe(dest("build/server"));
-});
-
-task("watch:server", () => {
-    let serverTask = task("build:server");
-    watch("source/server/**/*.ts", serverTask);
 });

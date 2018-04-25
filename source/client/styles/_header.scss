@@ -1,0 +1,87 @@
+@import "_branding";
+@import "_breakpoints";
+
+header {
+    height: 40vh;
+    min-height: 450px;
+    width: 100%;
+    position: relative !important;
+    display: block;
+    background-color: $chameleon-green;
+    border-bottom: 1px solid black;
+
+    .banner-overlay-panel {
+        display: flex;
+        flex-direction: column;
+        z-index: 25;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    div#banner-and-contact {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        align-items: center;
+        margin-top: 1.6em;
+        margin-left: 1em;
+    }      
+}
+
+div#contact-wrapper {
+
+    box-sizing: border-box;
+    width: fit-content;
+
+    div {
+        background-color: rgba(30, 150, 30, 0.5);
+        padding: .4em .8em;
+        color: #eee;
+        box-sizing: border-box;
+        border-radius: 4px;
+        align-self: center;
+        text-align: center;
+        margin-bottom: .2em;
+    }
+
+    span {
+        font-size: .7em;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+    }
+
+    div#tel-wrap {
+        background-color: rgba(16, 48, 115, 0.7) !important;
+        color: white;
+    }
+}
+
+address#telephone {
+    font-size: 1.2em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+chameleon-banner {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media screen and (orientation: portrait) and (max-width: $desktop) {
+    header {
+        height: 40vh;
+    }
+}
+
+@media screen and (max-width: $tablet) {
+
+    header {
+        height: fit-content;
+    }
+
+    .banner-overlay-panel {
+        width: 100%;
+        align-items: center;
+    }
+}

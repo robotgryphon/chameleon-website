@@ -1,62 +1,22 @@
-import { html, render } from "lit-html";
-import Swiper from "swiper";
+import SlideshowElement from "./slideshow-element";
 
-export class BannerElement extends HTMLElement {
+export class BannerElement extends SlideshowElement {
 
     protected imagePath: string = "/media/banner/";
 
-    protected swiper;
-    public delay: number;
-
-    constructor() {
-        super();
-        this.delay = 2.5;
-
-        render(this.template, this);        
-        
-    }
-
-    connectedCallback() {
-        this.firstRun();
-
-        let options = {      
-            autoplay: { delay: this.delay * 1000, disableOnInteraction: false },
-            effect: "fade"
-        };
-
-        this.swiper = new Swiper(this, options);
-    }
-
-    async firstRun() {
+    async loadImages() {
         let jsonFetch: Response = await fetch("../media/banner.json");
         let bannerJSON: string[] = await jsonFetch.json();
         
+        let i = [];
         bannerJSON.forEach(imageSrc => {
-            let newSlide = document.createElement("div");
-	        newSlide.classList.add("swiper-slide");
-	        newSlide.style.backgroundImage = `url(${this.imagePath + imageSrc})`;
-	
-            let c = this.querySelector(".swiper-wrapper");
-            c.appendChild(newSlide);
-        });        
-    }
+            i.push({
+                src: this.imagePath + imageSrc,
+                alt: ""
+            });
+        });
 
-    get template() {
-        return html`
-            <style>
-                :host {
-                    width: inherit;
-                    height: inherit;
-                }
-
-                .swiper-slide {
-                    background-size: cover;
-                    background-position-y: center;
-                }
-            </style>
-
-            <div class="swiper-wrapper"></div>
-        `;
+        this.images = i;
     }
 }
 

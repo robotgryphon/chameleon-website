@@ -12,6 +12,7 @@ let client = {
 		styles: `${base.source}/${base.clientDir}/sass`,
 		typescript: `${base.source}/${base.clientDir}/ts`,
 		scripts: `${base.source}/${base.clientDir}/js`,
+		fonts: `${base.source}/${base.clientDir}/fonts`,
 		assets: `${base.source}/${base.clientDir}/media`
 	},
 
@@ -19,7 +20,8 @@ let client = {
 		root: `${base.destination}/${base.clientDir}`,
 		styles: `${base.destination}/${base.clientDir}/styles`,
 		scripts: `${base.destination}/${base.clientDir}/scripts`,
-		assets: `${base.destination}/${base.clientDir}/media`
+		assets: `${base.destination}/${base.clientDir}/media`,
+		fonts: `${base.destination}/${base.clientDir}/fonts`
 	}
 };
 

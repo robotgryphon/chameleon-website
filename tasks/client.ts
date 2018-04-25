@@ -43,6 +43,12 @@ function typescript() {
 	return pipeStream.pipe(dest(client.destination.scripts));
 }
 
+function fonts() {
+	let fonts = `${client.source.fonts}/**/*`;
+	return src(fonts)
+		.pipe(dest(client.destination.fonts));
+}
+
 function styles() {
 	let styles = `${client.source.styles}/**/*.scss`;
 
@@ -67,11 +73,12 @@ let watchScripts = () => {
 let watchStyles = () => watch(`${client.source.styles}/**/*.scss`, styles);
 //endregion
 
-task("client", parallel(html, styles, typescript, assets));
+task("client", parallel(html, styles, typescript, assets, fonts));
 task("client:html", html);
 task("client:scripts", parallel(typescript, scripts));
 task("client:styles", styles);
 task("client:assets", assets);
+task("client:fonts", fonts);
 
 task("client:watch", parallel(watchHTML, watchScripts, watchStyles));
 task("client:watch-html", watchHTML);

@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-      "target": "es6",
-      "sourceMap": false,
-      "strict": false,
-      "moduleResolution": "node",
-      "strictNullChecks": false
-  }
-}
